@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="todoInput"> <!-- ➊ 할 일 입력 필드 -->
+  <button onclick="addTodo">Add</button> <!-- ➋ 할 일 추가 버튼 -->
+  <ul id="todoList"></ul> <!-- ➍ 할 일 목록 표시 영역 -->
+
+  <script>
+      function addTodo() {
+          var input = document.getElementById('todoInput'); // ➌ 입력 필드 요소 가져오기
+          var list = document.getElementById('todoList');
+          var newItem = document.createElement('li'); // ➋ 새로운 리스트 아이템 생성
+          newItem.textContent = input.value; // ➍ 입력한 텍스트를 리스트 아이템에 설정
+          list.appendChild(newItem);
+          input.value = ''; // ➎ 입력 필드 초기화
+      }
+  </script>
+</body>
+</html>
+
