@@ -1,1 +1,1 @@
-# react-master-book
+# 리액트 중급서
