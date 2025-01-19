@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lazy Image Loader Example</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+      .loader {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        display: inline-block;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      lazy-image {
+        display: flex;
+        justify-content: center;
+        min-height: 400px;
+        align-items: center;
+        position: relative; /* To contain the absolute positioned loader */
+      }
+
+      lazy-image img {
+        transition: opacity 1s ease-in-out;
+        filter: blur(10px);
+      }
+
+      .network-indicator {
+        position: fixed;
+        z-index: 1;
+        top: 20px;
+        left: 20px;
+        padding: 10px;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    .controls {
+        position: fixed;
+        z-index: 1;
+        top: 20px;
+        right: 20px;
+        background: white;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    </style>
+</head>
+<body>
+    <!-- 네트워크 속도 상태를 시뮬레이션하기 위한 속도 표시기입니다. -->
+    <div class="network-indicator">
+        Network Speed: <span id="networkSpeed">Fast 3G</span>
+    </div>
+
+    <div class="controls">
+        <h3>Simulation Controls</h3>
+        <div>
+            <label>Network Speed:</label>
+            <!-- 사용자는 네트워크 속도를 셀렉트 박스를 통해 선택할 수 있습니다. -->
+            <select id="networkSelect">
+                <option value="fast3g">Fast 3G</option>
+                <option value="slow3g">Slow 3G</option>
+                <option value="2g">2G</option>
+            </select>
+        </div>
+        <div style="margin-top: 10px;">
+            <!-- 재실험을 위해 resetSimuation() 함수를 만들었습니다. -->
+            <button onclick="resetSimulation()">Reset Images</button>
+        </div>
+    </div>
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 1" data-network-speed="fast3g"></lazy-image>
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g"></lazy-image>
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g"></lazy-image>
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g"></lazy-image>
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g"></lazy-image>
+    <script>
+        function resetHandler() {
+            const lazyImages = document.querySelectorAll('lazy-image');
+            lazyImages.forEach(img => {
+                img.reset();
+                img.querySelector('.loader').style.display = 'block';
+            });
+        }
+
+        function resetSimulation() {
+            const lazyImages = document.querySelectorAll('lazy-image');
+            const networkSpeed = document.getElementById('networkSelect').value;
+            lazyImages.forEach(img => {
+                img.setAttribute('data-network-speed', networkSpeed);
+                resetHandler(); // Reset image and show spinner
+                img.getObserver().observe(img); // Re-observe the image
+            });
+        }
+    </script>
+    <script src="./LazyImageLoader.js"></script>
+</body>
