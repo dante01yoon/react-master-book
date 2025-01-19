@@ -8,6 +8,13 @@ class LazyImageLoader extends HTMLElement {
     this._spinner = document.createElement('span');
     this._spinner.className = 'loader';
     this._spinner.style.display = 'block';
+
+    const indicatorColor = this.getAttribute('indicator-color');
+    if (indicatorColor) {
+      this._spinner.style.borderTopColor = indicatorColor;
+    }
+    this.applyBlur = this.hasAttribute('apply-blur');
+
     this.observer = new IntersectionObserver(this.handleIntersection.bind(this), {
       rootMargin: '0px 0px 200px 0px',
       threshold: 0,
@@ -46,12 +53,15 @@ class LazyImageLoader extends HTMLElement {
       delay = 5000;
     }
 
+    if (this.applyBlur) {
+      this._image.style.filter = 'blur(10px)';
+    }
+
     setTimeout(() => {
       this._image.src = this.getAttribute('data-src');
       this._image.onload = () => {
-        this._image.style.transition = 'opacity 1s ease-in-out';
         this._image.style.opacity = '1';
-        this._image.style.filter = 'none';
+        this._image.style.filter = 'blur(0)'; // Remove blur after loading
         this._spinner.style.display = 'none';
       };
     }, delay);

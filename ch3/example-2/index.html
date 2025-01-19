@@ -6,6 +6,7 @@
       html, body {
         height: 100%;
         margin: 0;
+        background: gray;
       }
       .loader {
         border: 4px solid #f3f3f3;
@@ -45,7 +46,7 @@
         border: 1px solid #ccc;
         border-radius: 5px;
     }
-    
+
     .controls {
         position: fixed;
         z-index: 1;
@@ -80,11 +81,12 @@
             <button onclick="resetSimulation()">Reset Images</button>
         </div>
     </div>
-    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 1" data-network-speed="fast3g"></lazy-image>
-    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g"></lazy-image>
-    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g"></lazy-image>
-    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g"></lazy-image>
-    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g"></lazy-image>
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 1" data-network-speed="fast3g" indicator-color="green"></lazy-image>
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g" indicator-color="blue" apply-blur></lazy-image>
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g" indicator-color="blue" apply-blur></lazy-image>
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g" indicator-color="blue" apply-blur></lazy-image>
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g" indicator-color="blue" apply-blur></lazy-image>
+
     <script>
         function resetHandler() {
             const lazyImages = document.querySelectorAll('lazy-image');
@@ -106,3 +108,4 @@
     </script>
     <script src="./LazyImageLoader.js"></script>
 </body>
+</html>
