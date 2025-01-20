@@ -8,20 +8,7 @@
         margin: 0;
         background: gray;
       }
-      .loader {
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #3498db;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        animation: spin 1s linear infinite;
-        display: inline-block;
-      }
 
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
 
       lazy-image {
         display: flex;
@@ -29,11 +16,6 @@
         min-height: 400px;
         align-items: center;
         position: relative; /* To contain the absolute positioned loader */
-      }
-
-      lazy-image img {
-        transition: opacity 1s ease-in-out;
-        filter: blur(10px);
       }
 
       .network-indicator {
@@ -83,16 +65,16 @@
     </div>
     <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 1" data-network-speed="fast3g" indicator-color="green" border-radius="10px"></lazy-image>
     <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g" indicator-color="blue" apply-blur border-radius="10px"></lazy-image>
-    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g" indicator-color="blue" apply-blur border-radius="10px"></lazy-image>
-    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g" indicator-color="blue" apply-blur border-radius="10px"></lazy-image>
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g" indicator-color="red" border-radius="10px"></lazy-image>
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g" indicator-color="purple" apply-blur border-radius="10px"></lazy-image>
     <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g" indicator-color="blue" apply-blur border-radius="10px"></lazy-image>
 
     <script>
         function resetHandler() {
             const lazyImages = document.querySelectorAll('lazy-image');
             lazyImages.forEach(img => {
+                console.log('shadowRoot: ', img.shadowRoot)
                 img.reset();
-                img.querySelector('.loader').style.display = 'block';
             });
         }
 
