@@ -102,4 +102,3 @@ class LazyImageLoader extends HTMLElement { // HTMLElement에서 제공하는 �
   }
 }
 
-customElements.define('lazy-image', LazyImageLoader);

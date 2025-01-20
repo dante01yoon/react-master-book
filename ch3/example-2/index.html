@@ -63,31 +63,25 @@
             <button onclick="resetSimulation()">Reset Images</button>
         </div>
     </div>
+    <!-- 리액트 컴포넌트를 사용하듯이 lazy-image 커스텀 엘리먼트를 사용하고 인터페이스로 사용한 속성값, indicator-color, border-radius, apply-blur 속성 값을 제공합니다. -->
     <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 1" data-network-speed="fast3g" indicator-color="green" border-radius="10px"></lazy-image>
     <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g" indicator-color="blue" apply-blur border-radius="10px"></lazy-image>
-    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g" indicator-color="red" border-radius="10px"></lazy-image>
-    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g" indicator-color="purple" apply-blur border-radius="10px"></lazy-image>
-    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 2" data-network-speed="fast3g" indicator-color="blue" apply-blur border-radius="10px"></lazy-image>
-
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 3" data-network-speed="fast3g" indicator-color="red" border-radius="10px"></lazy-image>
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 4" data-network-speed="fast3g" indicator-color="purple" apply-blur border-radius="10px"></lazy-image>
+    <lazy-image data-src="https://picsum.photos/800/400" alt="Placeholder Image 5" data-network-speed="fast3g" indicator-color="blue" apply-blur border-radius="10px"></lazy-image>
+    <script src="./LazyImageLoader.js"></script>
     <script>
-        function resetHandler() {
-            const lazyImages = document.querySelectorAll('lazy-image');
-            lazyImages.forEach(img => {
-                console.log('shadowRoot: ', img.shadowRoot)
-                img.reset();
-            });
-        }
+        customElements.define('lazy-image', LazyImageLoader); // 커스텀 엘리먼트를 등록합니다.
 
         function resetSimulation() {
             const lazyImages = document.querySelectorAll('lazy-image');
             const networkSpeed = document.getElementById('networkSelect').value;
             lazyImages.forEach(img => {
                 img.setAttribute('data-network-speed', networkSpeed);
-                resetHandler(); // Reset image and show spinner
-                img.getObserver().observe(img); // Re-observe the image
+                img.reset(); // 이미지를 리셋하고 스피너를 다시 보여줍니다.
+                img.getObserver().observe(img); // 커스텀 엘리먼트가 화면에 노출되는지 관찰하기 시작합니다.
             });
         }
     </script>
-    <script src="./LazyImageLoader.js"></script>
 </body>
 </html>
