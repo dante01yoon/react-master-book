@@ -2,7 +2,7 @@ const FormController = () => {
   const [formData, setFormData] = React.useState({ email: '', password: '' });
   const [errors, setErrors] = React.useState({});
 
-  const validateForm = () => {
+  const validateForm = () => { // 에러를 UI에 표시해야 하는지 판단하는 유효성 검사 로직을 캡슐화 합니다.
     const newErrors = {};
     if (!formData.email.includes('@')) newErrors.email = 'Invalid email address';
     if (formData.password.length < 6)
