@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo List (MVVM)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    #app {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    input {
+      width: calc(100% - 80px);
+      padding: 8px;
+      margin-right: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    button {
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px;
+      margin-bottom: 5px;
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    li button {
+      background-color: #dc3545;
+      color: white;
+      padding: 4px 8px;
+    }
+    li button:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h2>Todo List (MVVM Example)</h2>
+
+    <!-- 투두를 입력하는 인풋 창. 뷰모델의 newTodo 상태와 양방향 바인딩을 수행합니다. -->
+    <input
+      type="text"
+      data-bind="newTodo"
+      placeholder="Enter a new todo..."
+    />
+
+    <!-- 투두를 추가하기 위한 버튼. 뷰모델의 addTodo() 함수를 호출합니다. -->
+    <button data-click="addTodo">Add Todo</button>
+
+    <!-- 투두 리스트를 표시할 ul 엘리먼트  -->
+    <ul data-list="todos"></ul>
+  </div>
+
+  <script type="module" src="./todo.js"></script>
+</body>
+</html>
