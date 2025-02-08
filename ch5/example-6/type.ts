@@ -50,3 +50,4 @@ console.log(user.age);   // ✅ 안전 - 30
 // 다중 단언도 가능하지만 권장되지 않음
 const anotherData: unknown = "Hello";
 const num = anotherData as unknown as number; // ⚠️ 권장되지 않는 방식
+
