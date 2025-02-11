@@ -1,4 +1,3 @@
-// TypeScript 코드를 AST로 파싱하는 예제
 import * as ts from "typescript";
 
 // 파싱할 TypeScript 코드
@@ -9,7 +8,7 @@ function greet(name: string) {
 `;
 
 
-const sourceFile = ts.createSourceFile( // 소스 파일 생성 SourceFileObject 타입
+const sourceFile = ts.createSourceFile( // 메모리에서만 사용하는 소스 파일을 생성합니다. 실제로 파일이 생성되지는 않습니다.
     "example.ts",
     sourceCode,
     ts.ScriptTarget.Latest,
