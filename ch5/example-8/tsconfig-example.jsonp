@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es6", // 컴파일된 JavaScript의 ECMAScript 버전 지정
+    "module": "esnext", // 모듈 시스템 지정 (ESNext는 최신 ECMAScript 모듈 시스템 사용)
+    "jsx": "react-jsx", // React JSX 코드 변환 방식 지정
+    "outDir": "./dist", // 컴파일된 파일이 생성될 디렉토리 지정
+    "strict": true, // 엄격한 타입 체크 활성화
+    "moduleResolution": "node", // 모듈 해석 방식을 Node.js 방식으로 지정
+    "esModuleInterop": true, // CommonJS 모듈을 ES6 모듈처럼 사용할 수 있게 함
+    "skipLibCheck": true, // 선언 파일(*.d.ts)의 타입 체크 건너뛰기
+    "forceConsistentCasingInFileNames": true, // 파일 이름의 대소문자 일관성 강제
+    "sourceMap": true, // 소스맵 파일 생성 활성화
+    "noEmitOnError": true // 컴파일 에러 발생 시 JavaScript 파일 생성하지 않음
+  },
+  "include": ["src/**/*"], // 컴파일할 파일 범위 지정
+  "exclude": ["node_modules"] // 컴파일 제외할 디렉토리 지정
+}
+ 
