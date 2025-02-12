@@ -7,12 +7,11 @@ function createTransformer(): ts.TransformerFactory<ts.SourceFile> {
                 // Remove type annotations from parameters
                 if (ts.isParameter(node)) {
                     return ts.factory.createParameterDeclaration(
-                        node.decorators,
                         node.modifiers,
                         node.dotDotDotToken,
                         node.name,
-                        undefined, // Remove question token
-                        undefined, // Remove type annotation
+                        undefined, // question token
+                        undefined, // type
                         node.initializer
                     );
                 }
@@ -30,13 +29,12 @@ function createTransformer(): ts.TransformerFactory<ts.SourceFile> {
                 // Remove return type annotations from functions
                 if (ts.isFunctionDeclaration(node)) {
                     return ts.factory.createFunctionDeclaration(
-                        node.decorators,
                         node.modifiers,
                         node.asteriskToken,
                         node.name,
-                        undefined, // Remove type parameters
-                        node.parameters.map(p => visit(p) as ts.ParameterDeclaration), // Remove parameter types
-                        undefined, // Remove return type
+                        [], // type parameters
+                        node.parameters.map(p => visit(p) as ts.ParameterDeclaration),
+                        undefined, // return type
                         node.body
                     );
                 }
@@ -54,7 +52,7 @@ function createTransformer(): ts.TransformerFactory<ts.SourceFile> {
                 return ts.visitEachChild(node, visit, context);
             }
 
-            return ts.visitNode(sourceFile, visit);
+            return ts.visitNode(sourceFile, visit) as ts.SourceFile;
         };
     };
 }
@@ -110,3 +108,4 @@ function greet(person: Person): string {
     const message: string = "Hello, " + person.name;
     return message;
 }
+*/

@@ -7,8 +7,8 @@ function createTransformer() {
             function visit(node) {
                 // Remove type annotations from parameters
                 if (ts.isParameter(node)) {
-                    return ts.factory.createParameterDeclaration(node.decorators, node.modifiers, node.dotDotDotToken, node.name, undefined, // Remove question token
-                    undefined, // Remove type annotation
+                    return ts.factory.createParameterDeclaration(node.modifiers, node.dotDotDotToken, node.name, undefined, // question token
+                    undefined, // type
                     node.initializer);
                 }
                 // Remove type annotations from variable declarations
@@ -19,9 +19,8 @@ function createTransformer() {
                 }
                 // Remove return type annotations from functions
                 if (ts.isFunctionDeclaration(node)) {
-                    return ts.factory.createFunctionDeclaration(node.decorators, node.modifiers, node.asteriskToken, node.name, undefined, // Remove type parameters
-                    node.parameters.map(function (p) { return visit(p); }), // Remove parameter types
-                    undefined, // Remove return type
+                    return ts.factory.createFunctionDeclaration(node.modifiers, node.asteriskToken, node.name, [], // type parameters
+                    node.parameters.map(function (p) { return visit(p); }), undefined, // return type
                     node.body);
                 }
                 // Remove interface declarations
@@ -65,4 +64,5 @@ Transformed code:
 function greet(person: Person): string {
     const message: string = "Hello, " + person.name;
     return message;
-} 
+}
+*/ 
