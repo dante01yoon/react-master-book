@@ -1,0 +1,14 @@
+{
+  "name": "typescript-helpers-example",
+  "version": "1.0.0",
+  "dependencies": {
+    "tslib": "^2.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:no-helpers": "tsc --importHelpers false"
+  }
+} 
