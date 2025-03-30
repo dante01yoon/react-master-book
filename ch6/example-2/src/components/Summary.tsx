@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface DataItem {
   id: number;
   name: string;
