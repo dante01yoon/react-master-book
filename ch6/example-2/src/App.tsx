@@ -3,6 +3,7 @@ import './App.css'
 import ExpensiveList from './components/ExpensiveList'
 import SearchFilter from './components/SearchFilter'
 import Summary from './components/Summary'
+import { onRender } from 'react-scan'
 
 // DataItem 인터페이스 정의
 interface DataItem {
@@ -50,7 +51,7 @@ function App() {
     item.name.toLowerCase().includes(filter.toLowerCase()) ||
     item.category.toLowerCase().includes(filter.toLowerCase())
   )
-  
+
   return (
     <div className="app">
       <h1>데이터 대시보드 (카운터: {count})</h1>

@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface OptimizedSearchFilterProps {
   filter: string;
   onFilterChange: (filter: string) => void;
