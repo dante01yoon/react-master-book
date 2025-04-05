@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Lodash-ES Imports Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #ff4d4d;
+      border-bottom: 2px solid #ff4d4d;
+      padding-bottom: 10px;
+    }
+    .warning {
+      background-color: #fff4f4;
+      border: 1px solid #ffb8b8;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    .instructions {
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    button {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px 0;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #ff3333;
+    }
+    pre {
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    #importTime {
+      font-size: 24px;
+      margin: 15px 0;
+      color: #ff4d4d;
+    }
+  </style>
+</head>
+<body>
+  <h1>Real Lodash-ES Imports Demo</h1>
+  
+  <div class="warning">
+    <h3>⚠️ Warning: Browser Performance Impact</h3>
+    <p>This demo will import lodash-es directly from node_modules without bundling. Your browser will make hundreds of HTTP requests, which may temporarily slow down your experience.</p>
+  </div>
+  
+  <div class="instructions">
+    <h3>Instructions:</h3>
+    <ol>
+      <li>Open your browser's DevTools (F12 or Ctrl+Shift+I)</li>
+      <li>Go to the Network tab</li>
+      <li>Click the "Import Lodash-ES Directly" button below</li>
+      <li>Watch your Network tab fill with hundreds of requests for individual lodash-es modules</li>
+      <li>Note how long it takes to load everything due to the waterfall dependency loading</li>
+    </ol>
+  </div>
+  
+  <button id="importButton">Import Lodash-ES Directly</button>
+  
+  <div id="result"></div>
+  <div id="importTime"></div>
+  
+  <h3>What's happening?</h3>
+  <p>
+    When you click the button, this page will try to import the <code>debounce</code> function directly 
+    from lodash-es without any bundling. The browser has to:
+  </p>
+  <ol>
+    <li>Request the initial module file</li>
+    <li>Parse it and discover its dependencies</li>
+    <li>Request each dependency</li>
+    <li>Parse those and request their dependencies</li>
+    <li>...and so on, potentially hundreds of times!</li>
+  </ol>
+  
+  <h3>Compare with Vite's Approach</h3>
+  <p>
+    Vite pre-bundles all these dependencies into a single file, so instead of 600+ requests, 
+    you only need one. This dramatically improves page load performance.
+  </p>
+  
+  <h3>The import statement used:</h3>
+  <pre>import { debounce } from '/node_modules/lodash-es/debounce.js';</pre>
+  
+  <script type="module">
+    const importButton = document.getElementById('importButton');
+    const resultElement = document.getElementById('result');
+    const importTimeElement = document.getElementById('importTime');
+    
+    importButton.addEventListener('click', async () => {
+      resultElement.textContent = 'Importing lodash-es directly... Watch the Network tab!';
+      importTimeElement.textContent = '';
+      
+      const startTime = performance.now();
+      
+      // Using a dynamic import to trigger the loading on button click
+      try {
+        // This import will cause the browser to request hundreds of individual files
+        // as it follows the dependency tree of lodash-es
+        const { debounce } = await import('/node_modules/lodash-es/debounce.js');
+        
+        const endTime = performance.now();
+        const timeElapsed = (endTime - startTime).toFixed(2);
+        
+        // Create a debounced function to demonstrate it works
+        const debouncedFn = debounce(() => {
+          console.log('Debounced function called!');
+        }, 1000);
+        
+        // Call it to show it works
+        debouncedFn();
+        
+        resultElement.textContent = 'Import successful! The debounce function is loaded and working.';
+        importTimeElement.textContent = `Import time: ${timeElapsed}ms`;
+        importTimeElement.style.color = '#ff4d4d';
+        
+        console.log('Successfully imported debounce from lodash-es directly');
+      } catch (error) {
+        resultElement.textContent = `Error importing: ${error.message}`;
+        console.error('Import error:', error);
+      }
+    });
+  </script>
+</body>
+</html> 

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No Bundling Demo - 600+ Network Requests</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #ff4d4d;
+      border-bottom: 2px solid #ff4d4d;
+      padding-bottom: 10px;
+    }
+    .warning {
+      background-color: #fff4f4;
+      border: 1px solid #ffb8b8;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    .instructions {
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    button {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px 0;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #ff3333;
+    }
+    #status {
+      font-weight: bold;
+      margin: 20px 0;
+    }
+    .counter {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+    .note {
+      font-size: 14px;
+      color: #777;
+      font-style: italic;
+    }
+    #generatedRequests {
+      height: 200px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 12px;
+      background-color: #f8f8f8;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+      margin-top: 20px;
+    }
+    .request {
+      margin: 2px 0;
+      padding: 2px 4px;
+    }
+    .request:nth-child(odd) {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>No Bundling Demo: 600+ Network Requests</h1>
+  
+  <div class="warning">
+    <h3>⚠️ Warning: Browser Performance Impact</h3>
+    <p>This demo will generate 600+ simultaneous network requests to demonstrate what happens without Vite's pre-bundling. This may temporarily slow down your browser.</p>
+  </div>
+  
+  <div class="instructions">
+    <h3>Instructions:</h3>
+    <ol>
+      <li>Open your browser's DevTools (F12 or Ctrl+Shift+I)</li>
+      <li>Go to the Network tab</li>
+      <li>Click the "Generate 600+ Requests" button below</li>
+      <li>Watch as your Network tab fills with hundreds of requests</li>
+      <li>Note how long it takes to load everything and the impact on performance</li>
+    </ol>
+  </div>
+  
+  <button id="generateButton">Generate 600+ Requests</button>
+  <button id="stopButton" style="display: none; background-color: #777;">Stop & Reset</button>
+  
+  <div id="status">Ready to generate requests...</div>
+  <div class="counter" id="counter">0 / 600+</div>
+  
+  <div class="note">
+    <p>This is what would happen if you imported just one function from lodash-es without Vite's pre-bundling.</p>
+    <p>Real-world impact: slower initial page loads, browser network congestion, and poorer user experience.</p>
+  </div>
+  
+  <div id="generatedRequests"></div>
+  
+  <script>
+    const generateButton = document.getElementById('generateButton');
+    const stopButton = document.getElementById('stopButton');
+    const status = document.getElementById('status');
+    const counter = document.getElementById('counter');
+    const generatedRequests = document.getElementById('generatedRequests');
+    
+    let requestCount = 0;
+    let isStopped = false;
+    let imageElements = [];
+    
+    // Generate random but realistic lodash module paths
+    function generateModulePaths(count) {
+      const modules = [];
+      const baseNames = [
+        'debounce', 'throttle', 'map', 'filter', 'reduce', 'find', 'forEach',
+        'isArray', 'isObject', 'isString', 'isNumber', 'isBoolean', 'isFunction', 
+        'get', 'set', 'has', 'keys', 'values', 'pick', 'omit', 'merge', 'clone',
+        'uniqueId', 'random', 'round', 'max', 'min', 'sum', 'sample'
+      ];
+      
+      const helperNames = [
+        '_baseEach', '_baseMap', '_baseFlatten', '_baseFind', '_baseFindIndex',
+        '_baseForOwn', '_baseGet', '_baseIteratee', '_baseMatches', '_baseMatchesProperty',
+        '_baseProperty', '_basePropertyDeep', '_baseReduce', '_baseToString',
+        '_castFunction', '_castPath', '_createAssigner', '_createBaseEach', 
+        '_createBaseFor', '_createFlow', '_createWrap', '_flatRest', '_getData',
+        '_getLazyDef', '_getHolder', '_getWrapDetails', '_isLaziable', '_iteratorToArray',
+        '_mergeDefaults', '_metaMap', '_parent', '_realNames', '_replaceHolders',
+        '_shortOut', '_strictIndexOf', '_toSource', '_wrapperClone'
+      ];
+      
+      // Add primary modules
+      for (const name of baseNames) {
+        modules.push(`/lodash-es/${name}.js`);
+      }
+      
+      // Add helper modules
+      for (const name of helperNames) {
+        modules.push(`/lodash-es/${name}.js`);
+      }
+      
+      // Add more generated modules to reach the count
+      while (modules.length < count) {
+        const rand1 = Math.floor(Math.random() * baseNames.length);
+        const rand2 = Math.floor(Math.random() * helperNames.length);
+        if (Math.random() > 0.5) {
+          modules.push(`/lodash-es/_${baseNames[rand1]}${helperNames[rand2].substring(1)}.js`);
+        } else {
+          modules.push(`/lodash-es/_${helperNames[rand2].substring(1)}${baseNames[rand1].charAt(0).toUpperCase() + baseNames[rand1].slice(1)}.js`);
+        }
+      }
+      
+      return modules;
+    }
+    
+    function updateCounter() {
+      counter.textContent = `${requestCount} / 600+`;
+    }
+    
+    function addRequestToLog(path, size) {
+      if (generatedRequests.children.length > 100) {
+        // Keep only the last 100 items for performance
+        generatedRequests.removeChild(generatedRequests.firstChild);
+      }
+      
+      const requestEl = document.createElement('div');
+      requestEl.className = 'request';
+      requestEl.textContent = `${path} (${size}KB)`;
+      generatedRequests.appendChild(requestEl);
+      generatedRequests.scrollTop = generatedRequests.scrollHeight;
+    }
+    
+    // Simulate making a request by creating a tiny image with a unique URL
+    function makeRequest(path) {
+      if (isStopped) return;
+      
+      requestCount++;
+      updateCounter();
+      
+      const img = document.createElement('img');
+      img.style.width = '1px';
+      img.style.height = '1px';
+      img.style.position = 'absolute';
+      img.style.opacity = '0';
+      
+      // Add timestamp and random to ensure uniqueness and prevent caching
+      const uniquePath = `${path}?t=${Date.now()}&r=${Math.random()}`;
+      img.src = uniquePath;
+      document.body.appendChild(img);
+      imageElements.push(img);
+      
+      // Log the request
+      const sizeKB = (Math.random() * 3 + 1).toFixed(1);
+      addRequestToLog(path, sizeKB);
+      
+      if (requestCount >= 600) {
+        status.textContent = 'All requests generated! This is what would happen without Vite pre-bundling.';
+        status.style.color = '#ff4d4d';
+        stopButton.style.display = 'inline-block';
+        generateButton.style.display = 'none';
+      }
+    }
+    
+    function generateBatch(paths, index, batchSize) {
+      if (isStopped) return;
+      
+      const endIndex = Math.min(index + batchSize, paths.length);
+      
+      for (let i = index; i < endIndex; i++) {
+        makeRequest(paths[i]);
+      }
+      
+      if (endIndex < paths.length) {
+        // Continue with next batch
+        setTimeout(() => {
+          generateBatch(paths, endIndex, batchSize);
+        }, 100);
+      }
+    }
+    
+    function generateRequests() {
+      isStopped = false;
+      requestCount = 0;
+      updateCounter();
+      
+      status.textContent = 'Generating requests... Check your Network tab!';
+      status.style.color = '#000';
+      
+      generateButton.style.display = 'none';
+      stopButton.style.display = 'inline-block';
+      
+      const modulePaths = generateModulePaths(650);
+      
+      // Generate in batches to avoid completely freezing the browser
+      generateBatch(modulePaths, 0, 25);
+    }
+    
+    function stopAndReset() {
+      isStopped = true;
+      
+      // Remove all created image elements
+      imageElements.forEach(img => {
+        if (img.parentNode) {
+          img.parentNode.removeChild(img);
+        }
+      });
+      imageElements = [];
+      
+      requestCount = 0;
+      updateCounter();
+      
+      status.textContent = 'Ready to generate requests...';
+      status.style.color = '#000';
+      
+      stopButton.style.display = 'none';
+      generateButton.style.display = 'inline-block';
+      
+      generatedRequests.innerHTML = '';
+    }
+    
+    generateButton.addEventListener('click', generateRequests);
+    stopButton.addEventListener('click', stopAndReset);
+  </script>
+</body>
+</html> 
