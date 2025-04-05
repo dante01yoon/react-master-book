@@ -366,21 +366,6 @@ const RocketAnimation: React.FC = () => {
         rocketX = -50;
       }
       
-      // Draw aim line if mouse is over canvas
-      if (mousePos) {
-        const startX = rocketX + rocketWidth;
-        const startY = rocketY + rocketHeight / 2;
-        
-        ctx.beginPath();
-        ctx.moveTo(startX, startY);
-        ctx.lineTo(mousePos.x, mousePos.y);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-        ctx.setLineDash([5, 5]);
-        ctx.lineWidth = 2;
-        ctx.stroke();
-        ctx.setLineDash([]);
-      }
-      
       // Continue animation
       animationFrameId = requestAnimationFrame(animate);
     };
