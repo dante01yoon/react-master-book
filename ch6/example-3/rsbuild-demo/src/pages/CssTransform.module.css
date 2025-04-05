@@ -1,0 +1,69 @@
+:root {
+  --primary-color: hsl(var(--primary));
+  --secondary-color: hsl(var(--secondary));
+  --accent-color: hsl(var(--accent));
+  --card-radius: var(--radius-md);
+}
+
+.container {
+  /* CSS 변수 사용 */
+  color: var(--primary-color);
+  
+  /* 중첩 문법 사용 */
+  & .card {
+    background-color: hsl(var(--background));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--card-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: transform 0.2s ease;
+    
+    /* 최신 속성 - 호버 상태 */
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  }
+  
+  & .title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: hsl(var(--primary));
+  }
+  
+  & .description {
+    color: hsl(var(--muted-foreground));
+    
+    & .highlight {
+      color: hsl(var(--accent));
+      font-weight: 500;
+    }
+  }
+  
+  /* 최신 미디어 쿼리 문법 */
+  @media (width >= 768px) {
+    padding: 1.5rem;
+  }
+}
+
+/* 그리드 레이아웃 */
+.grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  
+  /* 최신 그리드 문법과 기능 */
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  
+  & .gridItem {
+    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent)));
+    padding: 1rem;
+    border-radius: var(--card-radius);
+    color: white;
+    text-align: center;
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+  }
+} 

@@ -30,6 +30,11 @@ const Header: React.FC = () => {
                 </a>
               </li>
               <li>
+                <a href="/css" className="text-foreground hover:text-primary transition-colors">
+                  CSS 변환
+                </a>
+              </li>
+              <li>
                 <a href="/rocket" className="text-foreground hover:text-primary transition-colors">
                   로켓
                 </a>

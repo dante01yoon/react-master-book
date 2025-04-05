@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Features from './pages/Features';
 import Performance from './pages/Performance';
 import RocketAnimation from './pages/RocketAnimation';
+import CssTransform from './pages/CssTransform';
 import NotFound from './pages/NotFound';
 
 // 메인 앱 컴포넌트
@@ -24,6 +25,7 @@ const App: React.FC = () => {
               <Route path="/features" element={<Features />} />
               <Route path="/performance" element={<Performance />} />
               <Route path="/rocket" element={<RocketAnimation />} />
+              <Route path="/css" element={<CssTransform />} />
               <Route path="/animation" element={<RocketAnimation />} />
               <Route path="/*" element={<RocketAnimation />} />
               <Route path="*" element={<NotFound />} />
