@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 /**
- * This component demonstrates Vite's on-demand transpilation using dynamic imports.
- * Modules are only loaded when the button is clicked, not during initial page load.
+ * 이 컴포넌트는 동적 임포트를 사용하여 Vite의 필요 시 변환을 보여줍니다.
+ * 모듈은 초기 페이지 로드 시가 아니라 버튼을 클릭할 때만 로드됩니다.
  */
 const DynamicImportExample = () => {
   const [results, setResults] = useState<Record<string, unknown> | null>(null);
@@ -16,7 +16,7 @@ const DynamicImportExample = () => {
     try {
       let result: Record<string, unknown>;
       
-      // Dynamic import - Vite only transpiles these modules when requested
+      // 동적 임포트 - Vite는 요청 시에만 이러한 모듈들을 변환합니다
       if (moduleName === 'math') {
         const mathModule = await import('./dynamic/math');
         result = {
@@ -40,13 +40,13 @@ const DynamicImportExample = () => {
           timestamp: utilsModule.getCurrentTimestamp()
         };
       } else {
-        result = { error: 'Unknown module' };
+        result = { error: '알 수 없는 모듈' };
       }
       
       setResults(result);
     } catch (error) {
-      console.error('Error loading module:', error);
-      setResults({ error: 'Failed to load module' });
+      console.error('모듈 로딩 오류:', error);
+      setResults({ error: '모듈 로드 실패' });
     } finally {
       setLoading(false);
     }
@@ -54,15 +54,15 @@ const DynamicImportExample = () => {
 
   return (
     <div className="dynamic-import-example">
-      <h2>Dynamic Import Example</h2>
+      <h2>동적 임포트 예제</h2>
       <p>
-        This example demonstrates Vite's on-demand transpilation using dynamic imports.
-        Click the buttons below to load different modules. Notice how each module is only
-        loaded when you request it.
+        이 예제는 동적 임포트를 사용하여 Vite의 필요 시 변환을 보여줍니다.
+        아래 버튼을 클릭하여 다양한 모듈을 로드해보세요. 각 모듈이 요청할 때만
+        로드되는 것을 확인하세요.
       </p>
       <p>
-        Check the Network tab in your browser's DevTools to observe how JavaScript files
-        are only loaded when you click on the buttons.
+        브라우저의 개발자 도구 네트워크 탭에서 JavaScript 파일이 
+        버튼을 클릭할 때만 로드되는 것을 관찰해보세요.
       </p>
       
       <div className="buttons" style={{ marginBottom: '20px' }}>
@@ -78,7 +78,7 @@ const DynamicImportExample = () => {
             borderRadius: '4px'
           }}
         >
-          Load Math Module
+          수학 모듈 로드
         </button>
         <button 
           onClick={() => handleLoadModule('formatter')}
@@ -92,7 +92,7 @@ const DynamicImportExample = () => {
             borderRadius: '4px'
           }}
         >
-          Load Formatter Module
+          포맷터 모듈 로드
         </button>
         <button 
           onClick={() => handleLoadModule('utils')}
@@ -106,7 +106,7 @@ const DynamicImportExample = () => {
             borderRadius: '4px'
           }}
         >
-          Load Utils Module
+          유틸 모듈 로드
         </button>
       </div>
       
@@ -120,16 +120,16 @@ const DynamicImportExample = () => {
         }}
       >
         {loading ? (
-          <p>Loading module...</p>
+          <p>모듈 로딩 중...</p>
         ) : results ? (
           <div>
-            <h3>Module Results:</h3>
+            <h3>모듈 결과:</h3>
             <pre style={{ padding: '10px', backgroundColor: '#eee', borderRadius: '4px' }}>
               {JSON.stringify(results, null, 2)}
             </pre>
           </div>
         ) : (
-          <p>Click a button above to load a module</p>
+          <p>모듈을 로드하려면 위의 버튼을 클릭하세요</p>
         )}
       </div>
     </div>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Real Lodash-ES Imports Demo</title>
+  <title>실제 Lodash-ES 임포트 데모</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -63,49 +63,47 @@
   </style>
 </head>
 <body>
-  <h1>Real Lodash-ES Imports Demo</h1>
+  <h1>실제 Lodash-ES 임포트 데모</h1>
   
   <div class="warning">
-    <h3>⚠️ Warning: Browser Performance Impact</h3>
-    <p>This demo will import lodash-es directly from node_modules without bundling. Your browser will make hundreds of HTTP requests, which may temporarily slow down your experience.</p>
+    <h3>⚠️ 경고: 브라우저 성능 영향</h3>
+    <p>이 데모는 번들링 없이 node_modules에서 직접 lodash-es를 가져옵니다. 브라우저가 수백 개의 HTTP 요청을 만들어 일시적으로 성능이 저하될 수 있습니다.</p>
   </div>
   
   <div class="instructions">
-    <h3>Instructions:</h3>
+    <h3>지시사항:</h3>
     <ol>
-      <li>Open your browser's DevTools (F12 or Ctrl+Shift+I)</li>
-      <li>Go to the Network tab</li>
-      <li>Click the "Import Lodash-ES Directly" button below</li>
-      <li>Watch your Network tab fill with hundreds of requests for individual lodash-es modules</li>
-      <li>Note how long it takes to load everything due to the waterfall dependency loading</li>
+      <li>브라우저의 개발자 도구를 엽니다 (F12 또는 Ctrl+Shift+I)</li>
+      <li>네트워크 탭으로 이동합니다</li>
+      <li>아래의 "lodash-ES 직접 가져오기" 버튼을 클릭합니다</li>
+      <li>네트워크 탭이 개별 lodash-es 모듈에 대한 수백 개의 요청으로 채워지는 것을 확인합니다</li>
+      <li>폭포수식 의존성 로딩으로 인해 모든 것을 로드하는 데 걸리는 시간을 확인합니다</li>
     </ol>
   </div>
   
-  <button id="importButton">Import Lodash-ES Directly</button>
+  <button id="importButton">lodash-ES 직접 가져오기</button>
   
   <div id="result"></div>
   <div id="importTime"></div>
   
-  <h3>What's happening?</h3>
+  <h3>무슨 일이 일어나고 있나요?</h3>
   <p>
-    When you click the button, this page will try to import the <code>debounce</code> function directly 
-    from lodash-es without any bundling. The browser has to:
+    버튼을 클릭하면 이 페이지는 번들링 없이 lodash-es에서 직접 <code>debounce</code> 함수를 가져오려고 시도합니다. 브라우저는 다음과 같은 작업을 수행해야 합니다:
   </p>
   <ol>
-    <li>Request the initial module file</li>
-    <li>Parse it and discover its dependencies</li>
-    <li>Request each dependency</li>
-    <li>Parse those and request their dependencies</li>
-    <li>...and so on, potentially hundreds of times!</li>
+    <li>초기 모듈 파일 요청</li>
+    <li>파일을 파싱하고 의존성 발견</li>
+    <li>각 의존성 요청</li>
+    <li>그것들을 파싱하고 그들의 의존성 요청</li>
+    <li>...그리고 계속해서, 잠재적으로 수백 번!</li>
   </ol>
   
-  <h3>Compare with Vite's Approach</h3>
+  <h3>Vite의 접근 방식과 비교</h3>
   <p>
-    Vite pre-bundles all these dependencies into a single file, so instead of 600+ requests, 
-    you only need one. This dramatically improves page load performance.
+    Vite는 이러한 모든 의존성을 단일 파일로 사전 번들링하므로, 600개 이상의 요청 대신 하나만 필요합니다. 이것은 페이지 로드 성능을 크게 향상시킵니다.
   </p>
   
-  <h3>The import statement used:</h3>
+  <h3>사용된 임포트 구문:</h3>
   <pre>import { debounce } from '/node_modules/lodash-es/debounce.js';</pre>
   
   <script type="module">
@@ -114,36 +112,36 @@
     const importTimeElement = document.getElementById('importTime');
     
     importButton.addEventListener('click', async () => {
-      resultElement.textContent = 'Importing lodash-es directly... Watch the Network tab!';
+      resultElement.textContent = 'lodash-es를 직접 가져오는 중... 네트워크 탭을 확인하세요!';
       importTimeElement.textContent = '';
       
       const startTime = performance.now();
       
-      // Using a dynamic import to trigger the loading on button click
+      // 중요: 동적 임포트를 사용하여 버튼 클릭 시 로딩 트리거
       try {
-        // This import will cause the browser to request hundreds of individual files
-        // as it follows the dependency tree of lodash-es
+        // 중요: 이 임포트는 브라우저가 lodash-es의 의존성 트리를 따라가며 수백 개의 개별 파일을 요청하게 됩니다
         const { debounce } = await import('/node_modules/lodash-es/debounce.js');
         
+        // 성능 측정: 가져오기에 걸린 시간 계산
         const endTime = performance.now();
         const timeElapsed = (endTime - startTime).toFixed(2);
         
-        // Create a debounced function to demonstrate it works
+        // 디바운스 함수가 실제로 작동하는지 증명하기 위해 함수 생성
         const debouncedFn = debounce(() => {
-          console.log('Debounced function called!');
+          console.log('디바운스된 함수가 호출되었습니다!');
         }, 1000);
         
-        // Call it to show it works
+        // 작동 확인을 위해 호출
         debouncedFn();
         
-        resultElement.textContent = 'Import successful! The debounce function is loaded and working.';
-        importTimeElement.textContent = `Import time: ${timeElapsed}ms`;
+        resultElement.textContent = '가져오기 성공! debounce 함수가 로드되어 작동 중입니다.';
+        importTimeElement.textContent = `가져오기 시간: ${timeElapsed}ms`;
         importTimeElement.style.color = '#ff4d4d';
         
-        console.log('Successfully imported debounce from lodash-es directly');
+        console.log('lodash-es에서 debounce를 직접 가져오기 성공');
       } catch (error) {
-        resultElement.textContent = `Error importing: ${error.message}`;
-        console.error('Import error:', error);
+        resultElement.textContent = `가져오기 오류: ${error.message}`;
+        console.error('가져오기 오류:', error);
       }
     });
   </script>

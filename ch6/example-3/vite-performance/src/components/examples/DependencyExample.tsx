@@ -6,14 +6,14 @@ import { useQuery } from '@tanstack/react-query';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import 'chart.js/auto';
 
-// Register Chart.js components
+// Chart.js 컴포넌트 등록
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 /**
- * This component demonstrates Vite's dependency pre-bundling.
+ * 이 컴포넌트는 Vite의 의존성 사전 번들링을 보여줍니다.
  * 
- * Notice how all these dependencies are pre-bundled by Vite
- * for faster loading, even though they are separate packages.
+ * 이 모든 의존성이 별도의 패키지임에도 불구하고
+ * Vite에 의해 더 빠른 로딩을 위해 사전 번들링되는 것을 확인하세요.
  */
 const DependencyExample = () => {
   const [currentTime, setCurrentTime] = useState('');
@@ -21,23 +21,23 @@ const DependencyExample = () => {
   const [numbers, setNumbers] = useState<number[]>([]);
   const chartRef = useRef<ChartJS | null>(null);
 
-  // Load chart after component mounts to demonstrate dependency pre-bundling
+  // 의존성 사전 번들링을 보여주기 위해 컴포넌트 마운트 후 차트 로드
   useEffect(() => {
     const canvas = document.getElementById('pieChart') as HTMLCanvasElement;
     if (canvas && !chartRendered) {
-      // Destroy existing chart if it exists
+      // 기존 차트가 있으면 제거
       if (chartRef.current) {
         chartRef.current.destroy();
       }
 
-      // Create new chart
+      // 새 차트 생성
       chartRef.current = new ChartJS(canvas, {
         type: 'pie',
         data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: ['빨강', '파랑', '노랑', '초록', '보라', '주황'],
           datasets: [
             {
-              label: 'Votes',
+              label: '투표',
               data: [12, 19, 3, 5, 2, 3],
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -63,7 +63,7 @@ const DependencyExample = () => {
       setChartRendered(true);
     }
 
-    // Cleanup function to destroy chart when component unmounts
+    // 컴포넌트 언마운트 시 차트 제거하는 정리 함수
     return () => {
       if (chartRef.current) {
         chartRef.current.destroy();
@@ -72,7 +72,7 @@ const DependencyExample = () => {
     };
   }, [chartRendered]);
 
-  // Format current time using date-fns
+  // date-fns를 사용하여 현재 시간 포맷팅
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(format(new Date(), 'PPpp'));
@@ -80,12 +80,12 @@ const DependencyExample = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Use lodash to generate random numbers
+  // lodash를 사용하여 랜덤 숫자 생성
   useEffect(() => {
     setNumbers(_.times(5, () => _.random(1, 100)));
   }, []);
 
-  // Use axios with react-query
+  // axios와 react-query 사용
   const { data, isLoading, error } = useQuery({
     queryKey: ['todos'],
     queryFn: async () => {
@@ -96,23 +96,23 @@ const DependencyExample = () => {
 
   return (
     <div className="dependency-example">
-      <h2>Dependency Pre-bundling Example</h2>
+      <h2>의존성 사전 번들링 예제</h2>
       <p>
-        This component imports multiple npm packages that are pre-bundled by Vite,
-        including lodash, date-fns, axios, react-query, and chart.js.
+        이 컴포넌트는 Vite에 의해 사전 번들링되는 여러 npm 패키지를 가져옵니다,
+        lodash, date-fns, axios, react-query, chart.js 등을 포함합니다.
       </p>
       <p>
-        Vite pre-bundles these dependencies using esbuild, which is much faster than
-        traditional bundlers. You can see the pre-bundled files in the Network tab.
+        Vite는 esbuild를 사용하여 이러한 의존성을 사전 번들링하며, 이는 
+        전통적인 번들러보다 훨씬 빠릅니다. 네트워크 탭에서 사전 번들링된 파일을 확인할 수 있습니다.
       </p>
       
       <div className="example-section">
-        <h3>Current Time (using date-fns):</h3>
+        <h3>현재 시간 (date-fns 사용):</h3>
         <p>{currentTime}</p>
       </div>
       
       <div className="example-section">
-        <h3>Random Numbers (using lodash):</h3>
+        <h3>랜덤 숫자 (lodash 사용):</h3>
         <ul>
           {numbers.map((num, index) => (
             <li key={index}>{num}</li>
@@ -121,18 +121,18 @@ const DependencyExample = () => {
       </div>
       
       <div className="example-section">
-        <h3>API Call (using axios and react-query):</h3>
+        <h3>API 호출 (axios와 react-query 사용):</h3>
         {isLoading ? (
-          <p>Loading...</p>
+          <p>로딩 중...</p>
         ) : error ? (
-          <p>Error loading data</p>
+          <p>데이터 로드 오류</p>
         ) : (
           <pre>{JSON.stringify(data, null, 2)}</pre>
         )}
       </div>
       
       <div className="example-section">
-        <h3>Chart (using chart.js):</h3>
+        <h3>차트 (chart.js 사용):</h3>
         <canvas id="pieChart" width="400" height="200"></canvas>
       </div>
     </div>

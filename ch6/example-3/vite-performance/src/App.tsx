@@ -14,29 +14,29 @@ function App() {
       case 'intro':
         return (
           <div className="intro">
-            <h1>Vite Performance Examples</h1>
+            <h1>Vite 성능 예제</h1>
             <p>
-              This application demonstrates key performance features of Vite:
+              이 애플리케이션은 Vite의 주요 성능 기능을 보여줍니다:
             </p>
             <ul>
               <li>
-                <strong>Dependency Pre-bundling</strong> - Vite pre-bundles dependencies using esbuild (10-100x faster than JavaScript-based bundlers)
+                <strong>의존성 사전 번들링</strong> - Vite는 esbuild를 사용하여 의존성을 사전 번들링합니다 (JavaScript 기반 번들러보다 10-100배 빠름)
               </li>
               <li>
-                <strong>On-Demand Transpilation</strong> - Vite only transpiles files when they're requested by the browser
+                <strong>필요 시 변환</strong> - Vite는 브라우저에서 요청할 때만 파일을 변환합니다
               </li>
             </ul>
             <p>
-              Select different examples from the navigation menu to explore these features.
-              Make sure to open your browser's DevTools (Network tab) to see how resources are loaded.
+              이러한 기능을 탐색하려면 탐색 메뉴에서 다양한 예제를 선택하세요.
+              리소스가 어떻게 로드되는지 확인하려면 브라우저의 개발자 도구(네트워크 탭)를 열어보세요.
             </p>
           </div>
         )
       case 'pre-bundling-comparison':
         return (
           <div>
-            <h2>Pre-bundling Comparison</h2>
-            <p>Compare what happens with and without Vite's dependency pre-bundling:</p>
+            <h2>사전 번들링 비교</h2>
+            <p>Vite의 의존성 사전 번들링 유무에 따라 어떤 일이 발생하는지 비교해보세요:</p>
             <div className="prebundling-tabs" style={{ marginBottom: '20px' }}>
               <button
                 onClick={() => document.getElementById('with-prebundling')?.scrollIntoView({ behavior: 'smooth' })}
@@ -49,7 +49,7 @@ function App() {
                   cursor: 'pointer'
                 }}
               >
-                With Pre-bundling
+                사전 번들링 있음
               </button>
               <button
                 onClick={() => document.getElementById('without-prebundling')?.scrollIntoView({ behavior: 'smooth' })}
@@ -62,7 +62,7 @@ function App() {
                   cursor: 'pointer'
                 }}
               >
-                Without Pre-bundling
+                사전 번들링 없음
               </button>
             </div>
             <div id="with-prebundling" style={{ marginBottom: '40px' }}>
@@ -84,7 +84,7 @@ function App() {
       case 'dynamic-import':
         return <DynamicImportExample />
       default:
-        return <div>Select an example from the navigation menu</div>
+        return <div>탐색 메뉴에서 예제를 선택하세요</div>
     }
   }
 
@@ -95,43 +95,43 @@ function App() {
           className={activeTab === 'intro' ? 'active' : ''} 
           onClick={() => setActiveTab('intro')}
         >
-          Introduction
+          소개
         </button>
         <button 
           className={activeTab === 'pre-bundling-comparison' ? 'active' : ''} 
           onClick={() => setActiveTab('pre-bundling-comparison')}
         >
-          Pre-bundling Comparison
+          사전 번들링 비교
         </button>
         <button 
           className={activeTab === 'lodash-prebundling' ? 'active' : ''} 
           onClick={() => setActiveTab('lodash-prebundling')}
         >
-          With Pre-bundling
+          사전 번들링 있음
         </button>
         <button 
           className={activeTab === 'no-prebundling' ? 'active' : ''} 
           onClick={() => setActiveTab('no-prebundling')}
         >
-          Without Pre-bundling
+          사전 번들링 없음
         </button>
         <button 
           className={activeTab === 'dependency-prebundling' ? 'active' : ''} 
           onClick={() => setActiveTab('dependency-prebundling')}
         >
-          Other Dependencies
+          기타 의존성
         </button>
         <button 
           className={activeTab === 'lazy-loading' ? 'active' : ''} 
           onClick={() => setActiveTab('lazy-loading')}
         >
-          Lazy Loading
+          지연 로딩
         </button>
         <button 
           className={activeTab === 'dynamic-import' ? 'active' : ''} 
           onClick={() => setActiveTab('dynamic-import')}
         >
-          Dynamic Import
+          동적 가져오기
         </button>
       </nav>
       <main className="content">
