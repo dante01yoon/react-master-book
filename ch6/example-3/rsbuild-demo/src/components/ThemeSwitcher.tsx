@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTheme } from './ThemeProvider';
 
+// 테마 스위처 컴포넌트
 const ThemeSwitcher: React.FC = () => {
   const { theme, setTheme, toggleDarkMode } = useTheme();
 
@@ -9,7 +10,7 @@ const ThemeSwitcher: React.FC = () => {
       <button
         onClick={toggleDarkMode}
         className="p-2 rounded-md hover:bg-accent"
-        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+        aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
       >
         {theme === 'dark' ? (
           <Sun className="h-5 w-5" />
@@ -54,6 +55,7 @@ const ThemeSwitcher: React.FC = () => {
   );
 };
 
+// 테마 버튼 프롭스 인터페이스
 interface ThemeButtonProps {
   theme: string;
   currentTheme: string;
@@ -62,6 +64,7 @@ interface ThemeButtonProps {
   disabled?: boolean;
 }
 
+// 테마 버튼 컴포넌트
 const ThemeButton: React.FC<ThemeButtonProps> = ({
   theme,
   currentTheme,
@@ -79,7 +82,7 @@ const ThemeButton: React.FC<ThemeButtonProps> = ({
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:ring-2 hover:ring-ring'}
         ${currentTheme === theme ? 'ring-2 ring-ring' : ''}
       `}
-      aria-label={`Switch to ${theme} theme`}
+      aria-label={`${theme} 테마로 전환`}
     >
       {currentTheme === theme && (
         <CheckIcon className="h-3 w-3 text-foreground" />
@@ -88,7 +91,7 @@ const ThemeButton: React.FC<ThemeButtonProps> = ({
   );
 };
 
-// Simple icon components
+// 아이콘 컴포넌트들
 const Sun = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

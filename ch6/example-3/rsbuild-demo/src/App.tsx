@@ -11,6 +11,7 @@ import Performance from './pages/Performance';
 import RocketAnimation from './pages/RocketAnimation';
 import NotFound from './pages/NotFound';
 
+// 메인 앱 컴포넌트
 const App: React.FC = () => {
   return (
     <ThemeProvider>
