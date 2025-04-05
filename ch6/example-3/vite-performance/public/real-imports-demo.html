@@ -114,13 +114,13 @@
     importButton.addEventListener('click', async () => {
       resultElement.textContent = 'lodash-es를 직접 가져오는 중... 네트워크 탭을 확인하세요!';
       importTimeElement.textContent = '';
-      
       const startTime = performance.now();
       
       // 중요: 동적 임포트를 사용하여 버튼 클릭 시 로딩 트리거
       try {
         // 중요: 이 임포트는 브라우저가 lodash-es의 의존성 트리를 따라가며 수백 개의 개별 파일을 요청하게 됩니다
-        const { debounce } = await import('/node_modules/lodash-es/debounce.js');
+        const { default: debounce } = await import('/node_modules/lodash-es/debounce.js');
+        console.log('debounce', debounce);
         
         // 성능 측정: 가져오기에 걸린 시간 계산
         const endTime = performance.now();

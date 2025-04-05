@@ -1,0 +1,419 @@
+/* Include Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./themes.css";
+
+/* Custom styles that extend Tailwind */
+@layer components {
+  .app-header {
+    @apply flex justify-between items-center py-4 mb-8 border-b border-gray-200;
+  }
+
+  .logo-text {
+    @apply text-2xl font-bold text-primary;
+  }
+
+  .logo-tag {
+    @apply text-sm text-gray-500;
+  }
+
+  .feature-card {
+    @apply bg-white rounded-lg p-6 shadow-md transition-all hover:shadow-lg hover:-translate-y-1;
+  }
+
+  .feature-icon {
+    @apply text-4xl mb-4;
+  }
+
+  .demo-button {
+    @apply bg-primary text-white py-2 px-4 rounded-md font-semibold cursor-pointer 
+           transition-colors hover:bg-primary-dark my-4;
+  }
+
+  .build-performance {
+    @apply bg-white rounded-lg p-6 shadow-md mt-8;
+  }
+
+  .bar {
+    @apply h-10 rounded mb-2 relative text-white flex items-center pl-4;
+  }
+
+  .rsbuild {
+    @apply bg-secondary;
+  }
+
+  .cra {
+    @apply bg-primary;
+  }
+
+  .webpack {
+    @apply bg-accent;
+  }
+
+  .comparison table {
+    @apply w-full border-collapse my-4 bg-white shadow-md rounded-lg overflow-hidden;
+  }
+
+  .comparison th, .comparison td {
+    @apply p-3 text-left border-b border-gray-200;
+  }
+
+  .comparison th {
+    @apply bg-primary text-white font-semibold;
+  }
+
+  .lazy-loaded-footer {
+    @apply mt-12 bg-gray-800 text-white p-8 rounded-lg shadow-md;
+  }
+
+  .btn {
+    @apply px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+  
+  .btn-secondary {
+    @apply px-4 py-2 rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/90;
+  }
+}
+
+/* Main styles for RSBuild demo application */
+
+:root {
+  --primary-color: #6366f1;
+  --secondary-color: #10b981;
+  --accent-color: #f43f5e;
+  --text-color: #1f2937;
+  --light-text: #6b7280;
+  --dark-bg: #111827;
+  --light-bg: #f9fafb;
+  --border-color: #e5e7eb;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Header styles */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.logo-tag {
+  font-size: 0.8rem;
+  color: var(--light-text);
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: var(--primary-color);
+}
+
+/* Section styles */
+section {
+  margin-bottom: 3rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+  color: var(--dark-bg);
+}
+
+.intro {
+  margin-bottom: 2rem;
+}
+
+.intro p {
+  font-size: 1.1rem;
+  max-width: 800px;
+}
+
+/* Feature styles */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.feature-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+/* Build Performance styles */
+.build-performance {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-top: 2rem;
+}
+
+.performance-bar {
+  margin: 1.5rem 0;
+}
+
+.bar {
+  height: 40px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  position: relative;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+}
+
+.label {
+  z-index: 2;
+  font-weight: bold;
+}
+
+.rsbuild {
+  background-color: var(--secondary-color);
+}
+
+.cra {
+  background-color: var(--primary-color);
+}
+
+.webpack {
+  background-color: var(--accent-color);
+}
+
+.performance-note {
+  font-size: 0.9rem;
+  color: var(--light-text);
+  font-style: italic;
+}
+
+/* Comparison styles */
+.comparison table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  background-color: white;
+  box-shadow: var(--shadow);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.comparison th, .comparison td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.comparison th {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+}
+
+.comparison tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+/* Demo section styles */
+.demo {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.demo-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin: 1rem 0;
+}
+
+.demo-button:hover {
+  background-color: #4f46e5;
+}
+
+/* Footer styles */
+.lazy-loaded-footer {
+  margin-top: 3rem;
+  background-color: var(--dark-bg);
+  color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.footer-content {
+  margin-bottom: 2rem;
+}
+
+.footer-content h3 {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.footer-content code {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.load-timestamp {
+  margin-top: 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+
+.link-section h4 {
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+}
+
+.link-section ul {
+  list-style: none;
+}
+
+.link-section a {
+  color: #d1d5db;
+  text-decoration: none;
+  display: block;
+  padding: 0.3rem 0;
+  transition: color 0.2s;
+}
+
+.link-section a:hover {
+  color: white;
+}
+
+.copyright {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  nav {
+    margin-top: 1rem;
+    width: 100%;
+  }
+  
+  nav ul {
+    flex-wrap: wrap;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-links {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+} 

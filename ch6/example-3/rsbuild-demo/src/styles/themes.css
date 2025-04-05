@@ -1,0 +1,98 @@
+:root {
+  --radius-sm: 0.3rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.8rem;
+
+  /* Base theme (light) */
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 240 5.9% 10%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 5.9% 10%;
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 240 5.9% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+}
+
+/* Blue theme */
+.theme-blue {
+  --primary: 221 83% 53%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 217 33% 17%;
+  --secondary-foreground: 210 40% 98%;
+  --accent: 199 89% 48%;
+  --accent-foreground: 210 40% 98%;
+  --ring: 221 83% 53%;
+}
+
+/* Green theme */
+.theme-green {
+  --primary: 142 76% 36%;
+  --primary-foreground: 355 100% 100%;
+  --secondary: 143 64% 24%;
+  --secondary-foreground: 355 100% 100%;
+  --accent: 142 77% 73%;
+  --accent-foreground: 144 61% 20%;
+  --ring: 142 76% 36%;
+}
+
+/* Purple theme */
+.theme-purple {
+  --primary: 267 84% 60%;
+  --primary-foreground: 60 9.1% 97.8%;
+  --secondary: 262 83% 58%;
+  --secondary-foreground: 60 9.1% 97.8%;
+  --accent: 273 100% 76%;
+  --accent-foreground: 60 9.1% 97.8%;
+  --ring: 267 84% 60%;
+}
+
+/* 
+  THEME TEMPLATE (copy this to create a new theme):
+
+  .theme-[name] {
+    --primary: HUE SATURATION% LIGHTNESS%;
+    --primary-foreground: HUE SATURATION% LIGHTNESS%;
+    --secondary: HUE SATURATION% LIGHTNESS%;
+    --secondary-foreground: HUE SATURATION% LIGHTNESS%;
+    --accent: HUE SATURATION% LIGHTNESS%;
+    --accent-foreground: HUE SATURATION% LIGHTNESS%;
+    --ring: HUE SATURATION% LIGHTNESS%;
+    
+    -- You can also override any other variables as needed:
+    -- --background, --foreground, --card, --card-foreground, etc.
+  }
+*/ 
