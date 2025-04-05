@@ -3,6 +3,7 @@ import './App.css'
 import DependencyExample from './components/examples/DependencyExample'
 import LazyLoadExample from './components/examples/LazyLoadExample'
 import DynamicImportExample from './components/examples/DynamicImportExample'
+import PreBundlingExample from './components/examples/PreBundlingExample'
 
 function App() {
   const [activeTab, setActiveTab] = useState<string>('intro')
@@ -30,6 +31,8 @@ function App() {
             </p>
           </div>
         )
+      case 'lodash-prebundling':
+        return <PreBundlingExample />
       case 'dependency-prebundling':
         return <DependencyExample />
       case 'lazy-loading':
@@ -49,6 +52,12 @@ function App() {
           onClick={() => setActiveTab('intro')}
         >
           Introduction
+        </button>
+        <button 
+          className={activeTab === 'lodash-prebundling' ? 'active' : ''} 
+          onClick={() => setActiveTab('lodash-prebundling')}
+        >
+          Lodash-ES Prebundling
         </button>
         <button 
           className={activeTab === 'dependency-prebundling' ? 'active' : ''} 
