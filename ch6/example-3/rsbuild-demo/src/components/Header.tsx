@@ -28,6 +28,11 @@ const Header: React.FC = () => {
                   Performance
                 </a>
               </li>
+              <li>
+                <a href="/rocket" className="text-foreground hover:text-primary transition-colors">
+                  Rocket
+                </a>
+              </li>
             </ul>
           </nav>
           <ThemeSwitcher />

@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Features from './pages/Features';
 import Performance from './pages/Performance';
+import RocketAnimation from './pages/RocketAnimation';
 import NotFound from './pages/NotFound';
 
 const App: React.FC = () => {
@@ -21,6 +22,9 @@ const App: React.FC = () => {
               <Route path="/" element={<Home />} />
               <Route path="/features" element={<Features />} />
               <Route path="/performance" element={<Performance />} />
+              <Route path="/rocket" element={<RocketAnimation />} />
+              <Route path="/animation" element={<RocketAnimation />} />
+              <Route path="/*" element={<RocketAnimation />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
