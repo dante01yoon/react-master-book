@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Native Lazy Loading Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    h1, h2 {
+      text-align: center;
+    }
+    
+    .controls {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      gap: 10px;
+    }
+    
+    button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background-color: #45a049;
+    }
+    
+    .status {
+      text-align: center;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-radius: 4px;
+    }
+    
+    .image-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      padding: 20px 0;
+    }
+    
+    .image-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+    
+    .image-item img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+    
+    .image-info {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Native Lazy Loading Demonstration</h1>
+  <h2>Using the loading="lazy" attribute</h2>
+  
+  <div class="controls">
+    <button id="toggleLazy">Toggle Lazy Loading</button>
+    <button id="resetImages">Reset Images</button>
+  </div>
+  
+  <div class="status" id="status">Lazy loading is: <strong>ENABLED</strong></div>
+  
+  <h2>Scroll down to see lazy loading in action</h2>
+  
+  <div class="image-container" id="imageContainer">
+    <!-- Images will be inserted here via JavaScript -->
+  </div>
+
+  <script>
+    // Configuration
+    const totalImages = 50;
+    let lazyLoadingEnabled = true;
+    
+    // DOM elements
+    const imageContainer = document.getElementById('imageContainer');
+    const statusElement = document.getElementById('status');
+    const toggleLazyBtn = document.getElementById('toggleLazy');
+    const resetImagesBtn = document.getElementById('resetImages');
+    
+
+    const dummys = {
+  "language_code": {
+    "ko": {
+      "E01": "국회는 정부의 동의없이 정부가 제출한 지출예산 각항의 금액을 증가하거나 새 비목을 설치할 수 없다. 국회에 제출된 법률안 기타의 의안은 회기중에 의결되지 못한 이유로 폐기되지 아니한다. 다만, 국회의원의 임기가 만료된 때에는 그러하지 아니하다.",
+      "E02": "헌법재판소에서 법률의 위헌결정, 탄핵의 결정, 정당해산의 결정 또는 헌법소원에 관한 인용결정을 할 때에는 재판관 6인 이상의 찬성이 있어야 한다. 광물 기타 중요한 지하자원·수산자원·수력과 경제상 이용할 수 있는 자연력은 법률이 정하는 바에 의하여 일정한 기간 그 채취·개발 또는 이용을 특허할 수 있다.",
+      "E03": "모든 국민은 그 보호하는 자녀에게 적어도 초등교육과 법률이 정하는 교육을 받게 할 의무를 진다. 모든 국민은 그 보호하는 자녀에게 적어도 초등교육과 법률이 정하는 교육을 받게 할 의무를 진다.",
+      "E04": "탄핵결정은 공직으로부터 파면함에 그친다. 그러나, 이에 의하여 민사상이나 형사상의 책임이 면제되지는 아니한다. 대통령은 내란 또는 외환의 죄를 범한 경우를 제외하고는 재직중 형사상의 소추를 받지 아니한다."
+    },
+    "en": {
+      "E01": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "E02": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
+      "E03": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of 'de Finibus Bonorum et Malorum' (The Extremes of Good and Evil) by Cicero, written in 45 BC.",
+      "E04": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
+    }
+  },
+  "image_list": [
+    {
+      "id": 1,
+      "image_url": "https://images.unsplash.com/photo-1742201934199-750a39f4c277?q=80&w=2564&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "id": 2,
+      "image_url": "https://images.unsplash.com/photo-1742829705753-f07509bc88ac?q=80&w=2565&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "id": 3,
+      "image_url": "https://plus.unsplash.com/premium_photo-1742559343092-c99525c43d40?q=80&w=2759&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "id": 4,
+      "image_url": "https://images.unsplash.com/photo-1742925602178-0f5939ee6845?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "id": 5,
+      "image_url": "https://images.unsplash.com/photo-1743014379226-a3189c8f4a84?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "id": 6,
+      "image_url": "https://images.unsplash.com/photo-1742321162462-fae6534564c2?q=80&w=2207&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "id": 7,
+      "image_url": "https://images.unsplash.com/photo-1743031031853-15698b5b8419?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "id": 8,
+      "image_url": "https://plus.unsplash.com/premium_photo-1670537995192-c0b562f5c7ba?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    }
+  ]
+}
+
+    // Function to create image elements
+    function createImages() {
+      imageContainer.innerHTML = '';
+      
+      for (let i = 1; i <= dummys.image_list.length; i++) {
+        const imageItem = document.createElement('div');
+        imageItem.className = 'image-item';
+        
+        const img = document.createElement('img');
+        
+        // Set the src to an image from dummyjs
+        img.src = dummys.image_list[i].image_url;
+        
+        // Set loading attribute based on current mode
+        if (lazyLoadingEnabled) {
+          img.setAttribute('loading', 'lazy');
+        } else {
+          img.setAttribute('loading', 'eager');
+        }
+        
+        img.alt = `샘플 이미지 ${i}`;
+        
+        const imageInfo = document.createElement('div');
+        imageInfo.className = 'image-info';
+        imageInfo.innerHTML = `<strong>이미지 ${i}</strong><br>
+                               loading="${lazyLoadingEnabled ? 'lazy' : 'eager'}"`;
+        
+        imageItem.appendChild(img);
+        imageItem.appendChild(imageInfo);
+        
+        imageContainer.appendChild(imageItem);
+      }
+    }
+    
+    // Toggle lazy loading
+    toggleLazyBtn.addEventListener('click', () => {
+      lazyLoadingEnabled = !lazyLoadingEnabled;
+      statusElement.innerHTML = `Lazy loading is: <strong>${lazyLoadingEnabled ? 'ENABLED' : 'DISABLED'}</strong>`;
+      createImages();
+    });
+    
+    // Reset images
+    resetImagesBtn.addEventListener('click', () => {
+      createImages();
+    });
+    
+    // Initial setup
+    createImages();
+  </script>
+</body>
+</html>
