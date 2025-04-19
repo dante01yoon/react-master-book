@@ -1,0 +1,29 @@
+{
+  "name": "react-element-example",
+  "version": "1.0.0",
+  "description": "React Element와 가상 DOM에 대한 예제",
+  "main": "index.js",
+  "scripts": {
+    "classic": "node src/classicExample.js",
+    "automatic": "node src/autoExample.js",
+    "real-element": "node src/realElement.js",
+    "jsx-demo": "npx babel src/jsxDemo.jsx --out-file dist/jsxDemo.js && node dist/jsxDemo.js",
+    "compare": "node src/compareElements.js"
+  },
+  "keywords": [
+    "react",
+    "jsx",
+    "virtual-dom",
+    "react-element"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.23.4",
+    "@babel/core": "^7.23.7",
+    "@babel/preset-react": "^7.23.3"
+  }
+} 
