@@ -1,0 +1,20 @@
+{
+  "jsc": {
+    "parser": {
+      "syntax": "ecmascript",
+      "jsx": true
+    },
+    "transform": {
+      "react": {
+        "runtime": "automatic",
+        "importSource": "react",
+        "pragma": "React.createElement",
+        "pragmaFrag": "React.Fragment"
+      }
+    },
+    "target": "es2015"
+  },
+  "module": {
+    "type": "commonjs"
+  }
+} 

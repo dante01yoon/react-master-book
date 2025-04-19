@@ -1,0 +1,23 @@
+{
+  "name": "babel-jsx-example",
+  "version": "1.0.0",
+  "description": "JSX 트랜스파일러 예제",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "build:watch": "babel src --out-dir dist --watch",
+    "compare": "node scripts/compare.js",
+    "compare:transforms": "node scripts/compare-transforms.js",
+    "build:new": "babel src/new-transform.jsx --out-dir dist --config-file ./.babelrc.new.json"
+  },
+  "keywords": ["babel", "jsx", "transpiler", "react"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.23.9",
+    "@babel/cli": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-react": "^7.23.9",
+    "react": "^18.2.0"
+  }
+}

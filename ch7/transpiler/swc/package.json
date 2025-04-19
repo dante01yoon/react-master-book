@@ -1,0 +1,33 @@
+{
+  "name": "swc-jsx-example",
+  "version": "1.0.0",
+  "description": "SWC JSX 트랜스파일러 예제",
+  "main": "index.js",
+  "scripts": {
+    "build": "swc src --out-dir dist",
+    "build:watch": "swc src --out-dir dist --watch",
+    "build:automatic": "swc src/new-transform.jsx --out-dir dist --config-file ./.swcrc.automatic",
+    "compare": "node scripts/compare.js",
+    "compare:transforms": "node scripts/compare-transforms.js",
+    "benchmark": "node scripts/benchmark.js"
+  },
+  "keywords": [
+    "swc",
+    "jsx",
+    "transpiler",
+    "react",
+    "rust"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@swc/cli": "^0.1.62",
+    "@swc/core": "^1.3.85",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "@babel/preset-react": "^7.22.5"
+  }
+}
