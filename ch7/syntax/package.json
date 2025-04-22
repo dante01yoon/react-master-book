@@ -1,0 +1,23 @@
+{
+  "name": "htm-example",
+  "version": "1.0.0",
+  "description": "JSX vs 태그드 템플릿 비교 예제",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": ["react", "htm", "jsx", "template-literals"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "htm": "^3.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "vite": "^4.3.9"
+  }
+} 
