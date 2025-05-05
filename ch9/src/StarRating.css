@@ -1,0 +1,28 @@
+.stars {
+ font-size: 30px;
+ cursor: pointer;
+}
+
+
+.star-radio {
+ display: none;
+}
+
+
+.star {
+ user-select: none;
+ color: grey;
+ display: inline-block;
+ margin-right: 5px;
+ transition: color 0.3s;
+}
+
+
+.star.filled {
+ color: gold;
+}
+
+
+label:hover, label:focus-within {
+ transform: scale(1.1);
+} 
