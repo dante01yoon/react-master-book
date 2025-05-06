@@ -1,0 +1,50 @@
+.app {
+ padding: 20px;
+}
+
+
+h1 {
+ font-size: 2em;
+ color: #333;
+}
+
+
+.menu {
+ list-style: none;
+ padding: 0;
+}
+
+
+.menu-item {
+ margin: 5px 0;
+ padding: 5px 10px;
+ border: 1px solid #ccc;
+ border-radius: 4px;
+ background-color: #f9f9f9;
+ cursor: pointer;
+ transition: background-color 0.3s;
+}
+
+
+.menu-item:hover {
+ background-color: #e9e9e9;
+}
+
+
+.menu-item-name {
+ display: flex;
+ align-items: center;
+ font-weight: bold;
+}
+
+
+.menu-item-name svg { /* Although icons are removed, keeping style for potential future use */
+ margin-right: 8px;
+}
+
+
+.submenu {
+ margin-left: 20px;
+ padding-left: 10px;
+ border-left: 1px solid #ccc;
+} 
