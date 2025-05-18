@@ -1,5 +1,7 @@
 {
 	"dependencies": {
-		"create-slots": "^0.6.1"
+		"@types/react": "^19.1.4",
+		"create-slots": "^0.6.1",
+		"react": "^19.1.0"
 	}
 }

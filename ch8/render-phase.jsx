@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 function RenderPhaseExample() {
  // useState 훅을 사용하여 count 상태와 이를 업데이트하는 setCount 함수 선언
  // 초기값은 0

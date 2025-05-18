@@ -8,40 +8,43 @@ importers:
 
   .:
     dependencies:
+      '@types/react':
+        specifier: ^19.1.4
+        version: 19.1.4
       create-slots:
         specifier: ^0.6.1
-        version: 0.6.1(react@18.3.1)
+        version: 0.6.1(react@19.1.0)
+      react:
+        specifier: ^19.1.0
+        version: 19.1.0
 
 packages:
+
+  '@types/react@19.1.4':
+    resolution: {integrity: sha512-EB1yiiYdvySuIITtD5lhW4yPyJ31RkJkkDw794LaQYrxCSaQV/47y5o1FMC4zF9ZyjUjzJMZwbovEnT5yHTW6g==}
 
   create-slots@0.6.1:
     resolution: {integrity: sha512-JS42cy0izLxyzTApqazoPsRGnw+GnPF8sG4mWxI3RcSZu5qwZpAA+8jUXKBQdI5qL4p1zlod6nKdV6y9LeD8ww==}
     peerDependencies:
       react: ^16.0.0 || ^17 || ^18
 
-  js-tokens@4.0.0:
-    resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
+  csstype@3.1.3:
+    resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
-  loose-envify@1.4.0:
-    resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
-    hasBin: true
-
-  react@18.3.1:
-    resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
+  react@19.1.0:
+    resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
     engines: {node: '>=0.10.0'}
 
 snapshots:
 
-  create-slots@0.6.1(react@18.3.1):
+  '@types/react@19.1.4':
     dependencies:
-      react: 18.3.1
+      csstype: 3.1.3
 
-  js-tokens@4.0.0: {}
-
-  loose-envify@1.4.0:
+  create-slots@0.6.1(react@19.1.0):
     dependencies:
-      js-tokens: 4.0.0
+      react: 19.1.0
 
-  react@18.3.1:
-    dependencies:
-      loose-envify: 1.4.0
+  csstype@3.1.3: {}
+
+  react@19.1.0: {}
