@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { useReducer } from "react";
+import MemoDemoPage from "./react-memo/MemoDemoPage";
+// import { BreadcrumbPage } from "./components/ui/breadcrumb";
 
 const countReducer = (state: CountState, action: CountAction): CountState => {
   switch (action.type) {
@@ -28,6 +30,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Index />} />
           {/* 모든 커스텀 라우트는 catch-all "*" 라우트 위에 추가함 */}
+          <Route path="/memo" element={<MemoDemoPage/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
