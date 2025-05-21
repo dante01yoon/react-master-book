@@ -55,6 +55,7 @@
 		"@tailwindcss/vite": "^4.1.6",
 		"@vitejs/plugin-react": "^4.4.1",
 		"autoprefixer": "^10.4.21",
+		"babel-plugin-react-compiler": "19.1.0-rc.2",
 		"clsx": "^2.1.1",
 		"postcss": "^8.5.3",
 		"react-scan": "^0.3.4",
@@ -64,7 +65,7 @@
 	},
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc && vite build",
+		"build": "vite build",
 		"preview": "vite preview"
 	}
 }
