@@ -9,11 +9,11 @@ const ReactCompilerConfig = { /* ... */ };
 export default defineConfig({
   plugins: [
     react({
-      babel: {
-        plugins: [
-          ['babel-plugin-react-compiler', ReactCompilerConfig], // must run first!
-        ]
-      }
+      // babel: {
+      //   plugins: [
+      //     ['babel-plugin-react-compiler', ReactCompilerConfig], // must run first!
+      //   ]
+      // }
     })
   ],
   resolve: {
