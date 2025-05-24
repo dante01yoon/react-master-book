@@ -24,17 +24,28 @@ const SIDEBAR_WIDTH_MOBILE = "18rem"
 const SIDEBAR_WIDTH_ICON = "3rem"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
-type SidebarContext = {
-  state: "expanded" | "collapsed"
-  open: boolean
-  setOpen: (open: boolean) => void
-  openMobile: boolean
-  setOpenMobile: (open: boolean) => void
-  isMobile: boolean
-  toggleSidebar: () => void
-}
+// ➊ 컨텍스트를 통해 공유될 값들의 타입을 정의함
+// 사이드바의 다양한 상태(펼침/접힘, 모바일 여부 등)와 이를 변경하는 함수들을 포함함
+type SidebarContextType = {
+  state: "expanded" | "collapsed"; // 사이드바의 현재 상태 (확장 또는 축소)
+  open: boolean; // 데스크탑 사이드바 열림 여부
+  setOpen: (open: boolean) => void; // 데스크탑 사이드바 열림 상태 변경 함수
+  openMobile: boolean; // 모바일 사이드바 열림 여부
+  setOpenMobile: (open: boolean) => void; // 모바일 사이드바 열림 상태 변경 함수
+  isMobile: boolean; // 현재 모바일 환경인지 여부
+  toggleSidebar: () => void; // 사이드바 상태를 토글하는 함수
+};
 
-const SidebarContext = React.createContext<SidebarContext | null>(null)
+// ➋ React.createContext를 사용하여 SidebarContext 객체를 생성함
+// 제네릭으로 컨텍스트가 가질 값의 타입(SidebarContextType) 또는 null을 지정함
+// 초기 기본값으로 null을 설정하여, Provider 외부에서 사용 시 에러 처리를 용이하게 함
+const SidebarContext = React.createContext<SidebarContextType | null>(null);
+
+// ➌ `useSidebar` 커스텀 훅: `SidebarContext`를 쉽게 사용하기 위한 헬퍼 훅.
+// 이 훅을 사용하면 `SidebarProvider` 내부의 어떤 컴포넌트에서든
+// `React.useContext(SidebarContext)`를 직접 호출할 필요 없이
+// 사이드바의 상태(예: `open`, `isMobile`)와 제어 함수(예: `setOpen`, `toggleSidebar`)에 접근할 수 있음.
+// 만약 `SidebarProvider` 외부에서 사용될 경우 에러를 발생시켜 잘못된 사용을 방지함.
 
 function useSidebar() {
   const context = React.useContext(SidebarContext)
@@ -114,7 +125,7 @@ const SidebarProvider = React.forwardRef<
     // This makes it easier to style the sidebar with Tailwind classes.
     const state = open ? "expanded" : "collapsed"
 
-    const contextValue = React.useMemo<SidebarContext>(
+    const contextValue = React.useMemo<SidebarContextType>(
       () => ({
         state,
         open,
@@ -128,7 +139,9 @@ const SidebarProvider = React.forwardRef<
     )
 
     return (
-      <SidebarContext.Provider value={contextValue}>
+      // ➍  사이드바 관련 컨텍스트 값을 전달할 하위 컴포넌트를 둘러쌈.
+      //    리액트 19버전 이전까지는 <SidebarContext.Provider>를 사용해야 함
+      <SidebarContext value={contextValue}>
         <TooltipProvider delayDuration={0}>
           <div
             style={
@@ -148,7 +161,7 @@ const SidebarProvider = React.forwardRef<
             {children}
           </div>
         </TooltipProvider>
-      </SidebarContext.Provider>
+      </SidebarContext>
     )
   }
 )

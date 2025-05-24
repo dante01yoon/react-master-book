@@ -1,0 +1,121 @@
+import React, { useEffect, useState, useLayoutEffect, Suspense } from "react";
+import { fetchProfileData } from "../fakeApi";
+
+// 초기 프로필 데이터를 비동기적으로 가져오는 함수 호출
+const initialResource = fetchProfileData();
+
+// 이 예제는 React 17 환경에서 `Suspense` 컴포넌트가 비동기 데이터 로딩을 처리하는 방식을 보여줍니다.
+// `ProfileDetails` 및 `ProfileTimeline` 컴포넌트는 `fetchProfileData`를 통해 얻은 `resource` prop으로부터 데이터를 읽어옵니다.
+// 이 데이터가 아직 준비되지 않은 경우(즉, 프로미스가 아직 resolve되지 않은 경우), 해당 컴포넌트는 'suspend' 상태가 됩니다.
+// `Suspense` 컴포넌트는 이렇게 자식 컴포넌트가 suspend되면, 데이터가 로드될 때까지 `fallback` UI를 대신 보여줍니다.
+// 이 과정에서 React 17에서는 suspend된 컴포넌트의 형제 컴포넌트들이 어떻게 처리되는지 관찰하는 것이 중요합니다.
+
+// 프로필 페이지 컴포넌트
+function ProfilePage() {
+  // 프로필 데이터를 위한 상태와 상태 설정 함수
+  // fetchProfileData로부터 반환된 resource를 초기값으로 사용
+  const [resource, setResource] = useState(initialResource);
+  return (
+    <>
+      {/* 최상위 Suspense 컴포넌트: ProfileDetails가 로딩되는 동안 fallback UI를 보여줌 */}
+      <Suspense
+        fallback={
+          <>
+            <h1>프로필 로딩 중...</h1>
+          </>
+        }
+      >
+        {/* ProfileDetails가 suspend되면, Sibling "one"은 React 17에서 마운트되고 이펙트가 실행됨 */}
+        <Sibling name="one" />
+        {/* 프로필 상세 정보를 보여주는 컴포넌트, 데이터 로딩 시 suspend될 수 있음 */}
+        <ProfileDetails resource={resource} />
+        {/* 중첩된 Suspense 컴포넌트: ProfileTimeline이 로딩되는 동안 fallback UI를 보여줌 */}
+        <Suspense fallback={<h1>게시물 로딩 중...</h1>}>
+          {/* ProfileTimeline이 suspend되면, Sibling "two"는 React 17에서 마운트되고 이펙트가 실행됨 */}
+          <Sibling name="two" />
+          {/* 프로필 타임라인(게시물 목록)을 보여주는 컴포넌트, 데이터 로딩 시 suspend될 수 있음 */}
+          <ProfileTimeline resource={resource} />
+          {/* ProfileTimeline이 suspend되어도, Sibling "three"는 React 17에서 마운트되고 이펙트가 실행됨 */}
+          {/* 이는 ProfileTimeline과 같은 Suspense 경계 내에 있기 때문 */}
+          <Sibling name="three" />
+        </Suspense>
+        {/* ProfileDetails 또는 ProfileTimeline이 suspend되어도, Sibling "four"는 React 17에서 마운트되고 이펙트가 실행됨 */}
+        {/* 이는 최상위 Suspense 경계 내에 있기 때문 */}
+        <Sibling name="four" />
+      </Suspense>
+    </>
+  );
+}
+
+// 형제 컴포넌트의 렌더링 및 이펙트 실행 순서를 확인하기 위한 컴포넌트
+function Sibling({ name }) {
+  // useLayoutEffect는 DOM 변경 후 동기적으로 실행됨
+  useLayoutEffect(() => {
+    console.log("Layout effect Sibling", name); // 레이아웃 이펙트 실행 로그
+    return () => {
+      console.log("Layout cleanup Sibling", name); // 레이아웃 이펙트 정리 로그
+    };
+  });
+
+  // useEffect는 렌더링 이후 비동기적으로 실행됨
+  useEffect(() => {
+    console.log("Effect Sibling", name); // 이펙트 실행 로그
+
+    return () => {
+      console.log("Cleanup Sibling", name); // 이펙트 정리 로그
+    };
+  }, [name]); // name prop이 변경될 때마다 이펙트 재실행
+
+  console.log("Render sibling", name); // 렌더링 로그
+  return <h1>Sibling: {name}</h1>; // 형제 컴포넌트의 이름을 보여주는 UI
+}
+
+// 프로필 상세 정보를 담당하는 컴포넌트
+function ProfileDetails({ resource }) {
+  useLayoutEffect(() => {
+    console.log("Layout effect ProfileDetails");
+    return () => {
+      console.log("Layout cleanup ProfileDetails");
+    };
+  });
+
+  useEffect(() => {
+    console.log("Effect ProfileDetails");
+    return () => {
+      console.log("Cleanup ProfileDetails");
+    };
+  });
+  // resource.user.read()를 통해 사용자 데이터를 읽어옴. 데이터가 준비되지 않으면 Suspense에 의해 포착됨.
+  const user = resource.user.read();
+  return <h1>{user.name}</h1>; // 사용자 이름을 보여주는 UI
+}
+
+// 프로필 타임라인(게시물 목록)을 담당하는 컴포넌트
+function ProfileTimeline({ resource }) {
+  // resource.posts.read()를 통해 게시물 데이터를 읽어옴. 데이터가 준비되지 않으면 Suspense에 의해 포착됨.
+  const posts = resource.posts.read();
+  useLayoutEffect(() => {
+    console.log("Layout effect ProfileTimeline");
+    return () => {
+      console.log("Layout cleanup ProfileTimeline");
+    };
+  });
+
+  useEffect(() => {
+    console.log("Effect ProfileTimeline");
+    return () => {
+      console.log("Cleanup ProfileTimeline");
+    };
+  });
+
+  return (
+    <ul>
+      {/* 게시물 목록을 순회하며 각 게시물을 리스트 아이템으로 렌더링함 */}
+      {posts.map((post) => (
+        <li key={post.id}>{post.text}</li>
+      ))}
+    </ul>
+  );
+}
+
+export default ProfilePage;

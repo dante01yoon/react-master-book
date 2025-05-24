@@ -409,6 +409,7 @@ export const RenderPropsExample = () => {
       <h2>9. Render Props 패턴 예제</h2>
       
       <DataFetcher url="https://api.example.com/rabbits">
+          {/* DataFetcher의 children으로 함수를 전달함 */}
         {({ loading, error, data }) => {
           // 로딩 중 상태 처리
           if (loading) {
@@ -426,9 +427,11 @@ export const RenderPropsExample = () => {
               <h3>토끼 목록</h3>
               <ul>
                 {/* 실제 API 호출 없이 가상 데이터 사용 */}
-                {['골디', '포티', '래비', '홉스'].map(name => (
+                {/* {['골디', '포티', '래비', '홉스'].map(name => (
                   <li key={name}>{name}</li>
-                ))}
+                ))} */}
+                {/* ➊ RabbitItemDetails 부터 프롭스 드릴링 문제가 재현됨  */}
+                <RabbitItemDetails data={data} />
               </ul>
             </div>
           );
