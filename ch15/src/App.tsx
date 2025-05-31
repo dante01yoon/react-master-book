@@ -4,6 +4,7 @@ import ComponentWithReact19 from './components/ComponentWithReact19';
 import SlowComponent from './components/SlowComponent';
 import InversionOfControl from './components/InversionOfControl';
 import BubbleGenerator from './components/BubbleGenerator';
+import TearingExampleApp from './components/TearingExampleApp';
 
 // 코드 스플리팅을 위해 lazy import 사용
 const CarrotPriceChartEffectApp = lazy(() => import('./components/CarrotPriceChartEffect'));
@@ -40,6 +41,12 @@ export default function App() {
             <li>
               <Link to="/ioc">Inversion of Control</Link>
             </li>
+            <li>
+              <Link to="/bubble-generator">Bubble Generator</Link>
+            </li>
+            <li>
+              <Link to="/tearing-example">Tearing Example</Link>
+            </li>
           </ul>
         </nav>
 
@@ -57,6 +64,7 @@ export default function App() {
             <Route path="/slow-component" element={<SlowComponent />} />
             <Route path="/ioc" element={<InversionOfControl />} />
             <Route path="/bubble-generator" element={<BubbleGenerator />} />
+            <Route path="/tearing-example" element={<TearingExampleApp />} />
           </Routes>
         </Suspense>
       </div>
