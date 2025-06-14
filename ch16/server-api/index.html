@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React SSR with Vite</title>
+  </head>
+  <body>
+    <!-- ➊ 리액트 앱이 렌더링될 위치. 서버에서 생성한 HTML로 교체됨 -->
+    <div id="root"><!--app-html--></div>
+  
+    <!-- ➋ 하이드레이션을 수행할 클라이언트 스크립트임 -->
+    <script type="module" src="/src/entry-client.jsx"></script>
+    
+    <!-- ➌ 서버 데이터를 클라이언트에 전달하기 위한 통로 역할을 함 -->
+    <script id="_DANTE_DATA" type="application/json">
+      <!--dante-data-->
+    </script>
+  </body>
+</html> 

@@ -1,0 +1,28 @@
+{
+  "name": "render-to-pipeable-stream",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "React 19 renderToPipeableStream example",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --outDir dist/server --ssr src/entry-server.jsx",
+    "build": "pnpm build:client && pnpm build:server",
+    "serve": "NODE_ENV=production node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.3.5"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.19.2",
+    "react": "^19.0.0-rc.0",
+    "react-dom": "^19.0.0-rc.0",
+    "serve-static": "^1.15.0"
+  }
+} 

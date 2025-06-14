@@ -1,0 +1,29 @@
+{
+  "name": "vanilla-renderToNodeStream",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node server",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --outDir dist/server --ssr /src/entry-server.jsx",
+    "preview": "cross-env NODE_ENV=production node server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.2",
+    "cross-env": "^7.0.3",
+    "vite": "^5.4.8"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.21.1",
+    "react": "18.3.0-canary-c3048aab4-20240326",
+    "react-dom": "18.3.0-canary-c3048aab4-20240326",
+    "sirv": "^3.0.0"
+  }
+}

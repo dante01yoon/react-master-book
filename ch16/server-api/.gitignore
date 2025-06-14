@@ -1,0 +1,8 @@
+# 의존성 폴더
+/node_modules
+
+# 빌드 결과물
+/dist
+
+# Vite 캐시
+/.vite 
