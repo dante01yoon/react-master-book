@@ -1,35 +1,50 @@
-'use client';
-
 import Image from 'next/image';
-import { Character } from '@/lib/rick_and_morty_api';
+import Link from 'next/link';
+import type { Character } from '@/lib/api/character';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface CharacterCardProps {
   character: Character;
 }
 
 /**
- * 개별 캐릭터 정보를 표시하는 카드 컴포넌트
+ * 캐릭터 정보를 표시하는 카드 컴포넌트
+ * @param {CharacterCardProps} props - 캐릭터 정보
+ * @returns {JSX.Element}
  */
 export default function CharacterCard({ character }: CharacterCardProps) {
+  // 생략
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-      <Image
-        src={character.image}
-        alt={character.name}
-        width={300}
-        height={300}
-        className="w-full object-cover"
-      />
-      <div className="p-4">
-        <h2 className="text-xl font-bold">{character.name}</h2>
-        <p className="text-gray-700">{character.species}</p>
-        <p className={`mt-2 font-semibold ${
-          character.status === 'Alive' ? 'text-green-500' : 
-          character.status === 'Dead' ? 'text-red-500' : 'text-gray-500'
-        }`}>
-          {character.status}
-        </p>
-      </div>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>{character.name}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="relative aspect-square w-full">
+          <Image
+            src={character.image}
+            alt={character.name}
+            fill
+            className="rounded-lg object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
+        <div className="mt-4 flex justify-between">
+          <span>Species: {character.species}</span>
+          <Badge variant={character.status === 'Alive' ? 'default' : 'destructive'}>
+            {character.status}
+          </Badge>
+        </div>
+        <p>Origin: {character.origin.name}</p>
+      </CardContent>
+      <CardFooter>
+        {/* 캐릭터 상세 페이지로 이동 */}
+        <Link href={`/characters/${character.id}`} className="w-full">
+          <Button className="w-full">View Details</Button>
+        </Link>
+      </CardFooter>
+    </Card>
   );
 } 

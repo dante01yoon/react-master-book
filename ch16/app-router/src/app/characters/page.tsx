@@ -1,27 +1,23 @@
 import { Suspense } from 'react';
+import { getCharacters } from '@/lib/api/character';
 import CharacterList from '@/components/CharacterList';
-import { getCharacters } from '@/lib/rick_and_morty_api';
+
+async function CharacterListComponent() {
+  const { results: characters } = await getCharacters();
+  return <CharacterList characters={characters} />;
+}
 
 /**
- * 캐릭터 목록 페이지 (서버 컴포넌트)
+ * 캐릭터 목록을 보여주는 페이지
+ * Suspense를 사용하여 로딩 상태를 처리
+ * @returns {JSX.Element}
  */
 export default function CharactersPage() {
-  // 서버에서 데이터 페칭 함수를 호출하여 Promise를 즉시 받음
-  const charactersPromise = getCharacters();
-
   return (
-    <div className="p-8">
-      <h1 className="text-4xl font-bold text-center mb-8">
-        Rick and Morty Characters
-      </h1>
-
-      {/* 
-        Suspense는 자식 컴포넌트(CharacterList)가 데이터를 기다리는 동안 
-        대체 UI(fallback)를 보여줌.
-        데이터 로딩이 완료되면 CharacterList의 렌더링 결과로 교체됨.
-      */}
-      <Suspense fallback={<div className="text-center text-xl">Loading characters...</div>}>
-        <CharacterList charactersPromise={charactersPromise} />
+    <div className="container mx-auto p-4">
+      <h1 className="mb-4 text-2xl font-bold">Rick and Morty Characters</h1>
+      <Suspense fallback={<p>Loading characters...</p>}>
+        <CharacterListComponent />
       </Suspense>
     </div>
   );
