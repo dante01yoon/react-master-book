@@ -10,7 +10,7 @@ import Image from "next/image";
  * @returns {Promise<JSX.Element>}
  */
 export default async function CharacterPage({ params }: { params: { id: string } }) {
-  const { id } = params;
+  const { id } = await params;
   const character = await getCharacter(id);
 
   // API를 조회해 존재하지 않는 캐릭터는 캐릭터 리스트 페이지로 리다이렉션 시킴
