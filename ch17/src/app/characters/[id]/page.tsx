@@ -3,6 +3,8 @@ import { redirect } from 'next/navigation';
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 /**
  * 단일 캐릭터의 상세 정보를 보여주는 페이지
@@ -30,6 +32,18 @@ export default async function CharacterPage({ params }: { params: { id: string }
           </CardTitle>
         </CardHeader>
         <CardContent>
+          <div className="flex justify-between items-center mb-4">
+            <Link href={`/characters/${Number(id) - 1}`} passHref>
+              <Button disabled={Number(id) <= 1}>
+                Previous Character
+              </Button>
+            </Link>
+            <Link href={`/characters/${Number(id) + 1}`} passHref>
+              <Button>
+                Next Character
+              </Button>
+            </Link>
+          </div>
           <div className="relative aspect-square w-full mb-4">
             <Image
               src={character.image}
