@@ -51,7 +51,8 @@ export const getStaticProps = async (
   context: GetStaticPropsContext<PostPageParams>,
 ) => {
   const { params } = context;
-  const postId = params?.id ? parseInt(params.id, 10) : NaN;
+  const paramsId = await params?.id;
+  const postId = paramsId ? parseInt(paramsId, 10) : NaN;
 
   // 1. URL 파라미터(id)가 유효한 숫자인지 확인
   if (isNaN(postId)) {
