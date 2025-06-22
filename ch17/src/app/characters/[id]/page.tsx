@@ -1,4 +1,4 @@
-import { getCharacter } from "@/lib/api/character";
+import { getCharacter, getCharacters } from "@/lib/api/character";
 import { redirect } from 'next/navigation';
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,8 +11,9 @@ import { Button } from "@/components/ui/button";
  * @param {{ params: { id: string } }} props - 페이지 파라미터
  * @returns {Promise<JSX.Element>}
  */
-export default async function CharacterPage({ params }: { params: { id: string } }) {
+export default async function CharacterPage({ params }: { params: Promise<{ id: string }>}) {
   const { id } = await params;
+  console.log('CharacterPage: 1')
   const character = await getCharacter(id);
 
   // API를 조회해 존재하지 않는 캐릭터는 캐릭터 리스트 페이지로 리다이렉션 시킴
@@ -68,3 +69,19 @@ export default async function CharacterPage({ params }: { params: { id: string }
     </div>
   );
 } 
+
+// generateStaticParams()에서 반환하지 않은 페이지 경로는 404 에러 페이지를 표시함
+// export const dynamicParams = false;
+// export const revalidate = 60; // 60초마다 ISR 적용
+
+// 빌드 시점에 정적으로 생성할 페이지의 id 목록을 반환함
+export async function generateStaticParams() {
+  const characters = await getCharacters();
+
+  // ➊ API 응답에 맞춰 { id: '1' }, { id: '2' }, ... 형태의 배열을 반환
+  return characters.results
+    .filter((character) => character.id < 4)
+    .map((character) => ({
+    id: character.id.toString(),
+  }));
+}
