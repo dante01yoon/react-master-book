@@ -25,8 +25,6 @@ export const getEpisodesByCharacter = unstable_cache(
       },
     });
 
-    const response = await prisma.episode.findMany();
-    console.log('response:', response);
     return data;
   },
   ['episodes-by-character'], // 캐시 키 프리픽스
