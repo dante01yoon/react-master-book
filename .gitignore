@@ -133,3 +133,6 @@ dist
 *.mdc
 
 build
+
+# prisma migration.sql
+migration.sql

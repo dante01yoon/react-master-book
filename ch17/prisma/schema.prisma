@@ -10,12 +10,20 @@ datasource db {
   url      = "file:./dev.db"
 }
 
+model Character {
+  id       Int       @id @default(autoincrement())
+  apiId    Int       @unique // Rick and Morty API의 캐릭터 ID
+  name     String
+  episodes Episode[]
+}
+
 model Episode {
-  id         Int      @id @default(autoincrement())
-  name       String
+  id         Int         @id @default(autoincrement())
+  apiId      Int         @unique // Rick and Morty API의 에피소드 ID
+  title      String
   air_date   String
   episode    String
-  characters String
   url        String
-  created    DateTime @default(now())
+  created    DateTime    @default(now())
+  characters Character[] // 다대다(M:N) 관계 설정
 } 

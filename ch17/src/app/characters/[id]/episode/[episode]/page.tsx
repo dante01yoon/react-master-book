@@ -14,13 +14,14 @@ interface EpisodePageParams {
 export default async function EpisodePage({ params }: EpisodePageParams) {
   console.log("--- Rendering Start: EpisodePage ---");
 
-  // ➋ 페이지에서도 동일한 에피소드 데이터를 다시 요청함
-  const { episode: episodeId, id: characterId } = await params;
+  // ➋ params.episode 값을 getEpisode 함수에 전달
+  const episodeId = params.episode;
   const episode = await getEpisode(episodeId);
 
   // 방어적으로 페이지 컴포넌트에서도 null 체크
   if (!episode) {
-    redirect(`/characters/${characterId}`);
+    // 이전 페이지로 리디렉션
+    redirect(`/characters/${params.id}/episode`);
   }
 
   console.log("--- Rendering End: EpisodePage ---");
@@ -28,7 +29,7 @@ export default async function EpisodePage({ params }: EpisodePageParams) {
   return (
     <Card className="bg-red-50">
       <CardHeader>
-        <CardTitle>Page: {episode.name}</CardTitle>
+        <CardTitle>Page: {episode.title}</CardTitle>
         <p className="text-sm text-gray-500">
           (이 정보는 page.tsx에서 렌더링되었습니다.)
         </p>
