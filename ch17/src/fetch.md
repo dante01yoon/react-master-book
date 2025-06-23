@@ -12,4 +12,29 @@ fetch("..", { next: { tags: ['character'] }});
 revalidateTag('a');
 // revalidateTag 호출 후, 이 fetch는 새로운 데이터를 가져와 다시 'character' 태그로 캐싱함
 fetch("..", { next: { tags: ['character'] }});
+
+'use client';
+export function DataFetcher() {
+ // 클라이언트 사이드 에서 수행하는 데이터 패칭은 데이터 캐시가 적용되지 않음
+ useEffect(() => {
+   fetch('/api/data')
+     .then(res => res.json())
+     .then(setData);
+ }, []);
+ return <div>{/* ... */}</div>;
+}
+
+// 외부 라이브러리를 사용하는 경우 데이터 캐시가 적용되지 않을 수 있음.
+const data = await prisma.episode.findMany({
+  where: {
+    characters: {
+      some: {
+        apiId: characterId,
+      },
+    },
+  },
+  include: {
+    characters: true, // 에피소드에 참여한 다른 캐릭터 정보도 포함
+  },
+});
 ```
