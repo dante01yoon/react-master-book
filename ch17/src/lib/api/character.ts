@@ -36,6 +36,7 @@ export interface CharactersResponse {
  * @returns {Promise<CharactersResponse>}
  */
 export async function getCharacters(): Promise<CharactersResponse> {
+  console.log('getCharacters 호출');
   // 1초 딜레이 추가
   await new Promise(resolve => setTimeout(resolve, 1000));
   const response = await fetch('https://rickandmortyapi.com/api/character');
@@ -51,6 +52,7 @@ export async function getCharacters(): Promise<CharactersResponse> {
  * @returns {Promise<Character>}
  */
 export async function getCharacter(id: string): Promise<Character> {
+  console.log('getCharacter 호출');
   // 1초 딜레이 추가
   await new Promise(resolve => setTimeout(resolve, 1000));
   const response = await fetch(`https://rickandmortyapi.com/api/character/${id}`);

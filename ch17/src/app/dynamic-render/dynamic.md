@@ -11,5 +11,6 @@ export function ClientSearchFilter() {
  // 생략
 }
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'auto' // 기본 설정
+export const dynamic = 'force-dynamic' // 동적 렌더링 강제
 ```

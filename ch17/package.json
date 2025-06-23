@@ -36,6 +36,7 @@
     "prisma": "^6.10.1",
     "react-scan": "^0.3.4",
     "tailwindcss": "^4",
+    "tsx": "^4.20.3",
     "tw-animate-css": "^1.3.4",
     "typescript": "^5"
   },
@@ -45,6 +46,6 @@
     ]
   },
   "prisma": {
-    "seed": "ts-node --compiler-options '{\\\"module\\\":\\\"CommonJS\\\"}' ch17/prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts"
   }
 }

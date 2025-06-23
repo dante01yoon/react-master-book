@@ -20,7 +20,7 @@ export interface Episode {
  */
 export const getEpisode = cache(
   async (id: string | number): Promise<Episode | null> => {
-    // ⭐️ 함수가 실제로 DB에 쿼리할 때만 콘솔에 로그를 출력함
+    // 함수가 실제로 DB에 쿼리할 때만 콘솔에 로그를 출력함
     console.log(
       `[DB Query Fired] Fetching data for episode: ${id} from database.`
     );
