@@ -26,4 +26,42 @@ model Episode {
   url        String
   created    DateTime    @default(now())
   characters Character[] // 다대다(M:N) 관계 설정
+  comments   Comment[]   // 에피소드에 달린 댓글 (1:N)
+}
+
+// 사용자 모델
+model User {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  // 사용자가 작성한 댓글과 반응
+  comments  Comment[]
+  reactions Reaction[]
+}
+
+// 댓글 모델
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  // 작성자 정보 (N:1)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  // 댓글이 달린 에피소드 정보 (N:1)
+  episode   Episode  @relation(fields: [episodeId], references: [id])
+  episodeId Int
+  // 댓글에 달린 반응 (1:N)
+  reactions Reaction[]
+}
+
+// 반응(이모지) 모델
+model Reaction {
+  id        Int      @id @default(autoincrement())
+  emoji     String // 예: "👍", "❤️"
+  createdAt DateTime @default(now())
+  // 반응을 남긴 사용자 (N:1)
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  // 반응이 달린 댓글 (N:1)
+  comment   Comment  @relation(fields: [commentId], references: [id])
+  commentId Int
 } 

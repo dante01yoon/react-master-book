@@ -14,14 +14,14 @@ interface EpisodePageParams {
 export default async function EpisodePage({ params }: EpisodePageParams) {
   console.log("--- Rendering Start: EpisodePage ---");
 
-  // ➋ params.episode 값을 getEpisode 함수에 전달
-  const episodeId = params.episode;
+  // params.episode 값을 getEpisode 함수에 전달
+  const { episode: episodeId, id: characterId } = await params;
   const episode = await getEpisode(episodeId);
 
   // 방어적으로 페이지 컴포넌트에서도 null 체크
   if (!episode) {
     // 이전 페이지로 리디렉션
-    redirect(`/characters/${params.id}/episode`);
+    redirect(`/characters/${characterId}/episode`);
   }
 
   console.log("--- Rendering End: EpisodePage ---");

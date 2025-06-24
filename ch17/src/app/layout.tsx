@@ -5,7 +5,7 @@ import { Geist } from 'next/font/google'
 import "./globals.css";
 import { cn } from "@/lib/utils"
 import { Inter } from 'next/font/google'
-
+import MainLayout from '@/components/layout/MainLayout';
 const inter = Inter({ subsets: ['latin'] })
 
 const geist = Geist({
@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.className, geist.className)}>
-        {children}
+        <MainLayout>{children}</MainLayout>
       </body>
     </html>
   );
