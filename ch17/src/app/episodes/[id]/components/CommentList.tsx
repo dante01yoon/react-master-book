@@ -2,6 +2,7 @@
 
 import { useOptimistic, useRef, useTransition } from 'react';
 // import type { Comment, User, Reaction } from '@prisma/client'; // 타입 임포트 제거
+import { type FullComment } from '@/lib/db';
 import { createCommentAction, addReactionAction } from '@/app/episodes/actions';
 
 // 필요한 타입을 컴포넌트 내에 직접 정의
@@ -84,11 +85,11 @@ export default function CommentList({ comments, episodeId }: CommentListProps) {
                 {/* 반응 버튼 */}
                 <button onClick={() => handleAddReaction(comment.id, '👍')} disabled={isPending}>
                   <span className="text-sm mr-1">👍</span>
-                  <span className="text-sm">{comment.reactions.filter((r: Reaction) => r.emoji === '👍').length}</span>
+                  <span className="text-sm">{comment.reactions.filter((r: FullComment['reactions'][number]) => r.emoji === '👍').length}</span>
                 </button>
                 <button onClick={() => handleAddReaction(comment.id, '❤️')} disabled={isPending}>
                   <span className="text-sm mr-1">❤️</span>
-                  <span className="text-sm">{comment.reactions.filter((r: Reaction) => r.emoji === '❤️').length}</span>
+                  <span className="text-sm">{comment.reactions.filter((r: FullComment['reactions'][number]) => r.emoji === '❤️').length}</span>
                 </button>
               </div>
             </div>
