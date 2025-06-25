@@ -2,12 +2,7 @@
 
 import { useActionState } from "react";
 
-// import { uploadImage } from './actions';
-
-/**
- * 이미지 업로드용 클라이언트 컴포넌트 폼
- * 서버 액션(uploadImage)을 action 속성으로 받아 전송함
- */
+// 전송 버튼 컴포넌트
 function SubmitButton({ isPending }: { isPending: boolean }) {
   return (
     <button
@@ -20,6 +15,10 @@ function SubmitButton({ isPending }: { isPending: boolean }) {
   );
 }
 
+/**
+ * 이미지 업로드용 클라이언트 컴포넌트 폼
+ * 서버 액션(uploadImage)을 action 속성으로 받아 전송함
+ */
 export default function UploadActionState({ uploadAction }: { uploadAction: (...args: any[]) => Promise<any> }) {
   // useActionState의 초기 상태를 정의함
   const initialState = {
