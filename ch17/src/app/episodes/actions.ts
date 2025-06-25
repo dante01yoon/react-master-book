@@ -2,7 +2,7 @@
 
 import { revalidateTag } from 'next/cache';
 import { createComment, addReaction, getTestUser } from '@/lib/db';
-
+import { delay } from '@/lib/utils';
 /**
  * 댓글 생성 서버 액션
  * @param formData - <form> 요소에서 전달된 데이터
@@ -16,6 +16,7 @@ export async function createCommentAction(formData: FormData) {
   }
 
   try {
+    await delay(4000);
     const user = await getTestUser();
     // 서버 함수 호출
     await createComment(episodeId, user.id, content);
@@ -39,6 +40,7 @@ export async function addReactionAction(commentId: number, episodeId: number, em
   }
 
   try {
+    await delay(4000);
     const user = await getTestUser();
     // 서버 함수 호출
     await addReaction(commentId, user.id, emoji);

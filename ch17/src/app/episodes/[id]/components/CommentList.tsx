@@ -1,6 +1,6 @@
 'use client';
 
-import { useOptimistic, useRef, useTransition } from 'react';
+import { useOptimistic, useTransition } from 'react';
 // import type { Comment, User, Reaction } from '@prisma/client'; // 타입 임포트 제거
 import { type FullComment } from '@/lib/db';
 import { createCommentAction, addReactionAction } from '@/app/episodes/actions';
@@ -34,20 +34,19 @@ interface CommentListProps {
 }
 
 export default function CommentList({ comments, episodeId }: CommentListProps) {
-  const [isPending, startTransition] = useTransition();
-
-  // 1. useOptimistic 훅으로 댓글 목록의 낙관적 업데이트를 설정
+  // useOptimistic 훅으로 댓글 목록의 낙관적 업데이트를 설정
   const [optimisticComments, addOptimisticComment] = useOptimistic<FullComment[], FullComment>(
     comments,
     (state, newComment) => [...state, newComment]
   );
+  const [isPending, startTransition] = useTransition();
 
   // 폼 제출 핸들러
   async function handleCreateComment(formData: FormData) {
     const content = formData.get('content') as string;
     if (!content) return;
 
-    // 2. 임시 댓글 객체를 만들어 낙관적 UI를 먼저 업데이트
+    // 임시 댓글 객체를 만들어 낙관적 UI를 먼저 업데이트
     addOptimisticComment({
       id: Math.random(), // 임시 ID
       content,
@@ -58,7 +57,7 @@ export default function CommentList({ comments, episodeId }: CommentListProps) {
       reactions: [],
     });
 
-    // 3. 서버 액션을 호출
+    // 서버 액션을 호출
     await createCommentAction(formData);
   }
 
@@ -74,13 +73,14 @@ export default function CommentList({ comments, episodeId }: CommentListProps) {
     <div>
       {/* 댓글 목록 */}
       <ul className="space-y-4">
+        {/* 낙관적 업데이트를 적용한 댓글 목록 */}
         {optimisticComments.map((comment) => (
           <li key={comment.id} className="p-4 border rounded-md">
             <p>{comment.content}</p>
             <div className="flex items-center justify-between mt-2">
               <span className="text-sm text-gray-500">- {comment.author.name}</span>
               <div className="flex items-center space-x-2">
-                {/* 반응 버튼 */}
+                {/* 반응 버튼  - 낙관적 업데이트를 수행하지 않음 */}
                 <button onClick={() => handleAddReaction(comment.id, '👍')} disabled={isPending}>
                   <span className="text-sm mr-1">👍</span>
                   <span className="text-sm">{comment.reactions.filter((r: FullComment['reactions'][number]) => r.emoji === '👍').length}</span>
