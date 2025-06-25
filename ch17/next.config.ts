@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '3mb', // 기본 설정 값은 1mb
+    }
   }
 };
 

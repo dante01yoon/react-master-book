@@ -3,7 +3,10 @@ import { join } from 'path';
 import { existsSync, readdirSync } from 'fs';
 import UploadForm from './UploadForm';
 import UploadTransition from './UploadTransition';
+import UploadActionState from './UploadActionState';
 import { uploadImage } from './actions-props';
+import { uploadImage as uploadImageState } from './actions-state';
+import LikeButton from './LikeButton';
 /**
  * 서버 액션을 활용한 이미지 업로드 예제 페이지
  * 라우트 핸들러(route.ts) 없이 파일 업로드 로직을 구현함
@@ -24,10 +27,12 @@ export default async function UploadActionPage() {
     <main className="max-w-xl mx-auto p-6 space-y-8">
       <h1 className="text-2xl font-bold">서버 액션 이미지 업로드</h1>
 
+      {/* useActionState 사용을 위한 업로드 폼 */}
+      <UploadActionState uploadAction={uploadImageState} />
+
       {/* 업로드 폼 (클라이언트 컴포넌트) */}
       <UploadForm uploadAction={uploadImage} />
       <UploadTransition uploadAction={uploadImage} />
-
       {/* 업로드된 이미지 미리보기 */}
       {images.length > 0 ? (
         <section className="grid grid-cols-2 gap-4">
@@ -40,6 +45,9 @@ export default async function UploadActionPage() {
                 sizes="200px"
                 className="object-cover rounded"
               />
+              <div className="absolute bottom-2 right-2">
+                <LikeButton />
+              </div>
             </div>
           ))} 
         </section>
