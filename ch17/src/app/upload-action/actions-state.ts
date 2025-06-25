@@ -38,7 +38,7 @@ export async function uploadImage(currentState: any, formData: FormData) {
   // File → Buffer 변환
   const buffer = Buffer.from(await file.arrayBuffer());
 
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 3000));
 
   // 업로드 디렉터리 (/public/uploads) 보장
   const uploadDir = join(process.cwd(), 

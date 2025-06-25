@@ -4,6 +4,7 @@ import { existsSync, readdirSync } from 'fs';
 import UploadForm from './UploadForm';
 import UploadTransition from './UploadTransition';
 import UploadActionState from './UploadActionState';
+import UploadFormStatus from './UploadFormStatus';
 import { uploadImage } from './actions-props';
 import { uploadImage as uploadImageState } from './actions-state';
 import LikeButton from './LikeButton';
@@ -26,6 +27,9 @@ export default async function UploadActionPage() {
   return (
     <main className="max-w-xl mx-auto p-6 space-y-8">
       <h1 className="text-2xl font-bold">서버 액션 이미지 업로드</h1>
+
+      {/* useFormStatus 사용을 위한 업로드 폼 */}
+      <UploadFormStatus uploadAction={uploadImageState} />
 
       {/* useActionState 사용을 위한 업로드 폼 */}
       <UploadActionState uploadAction={uploadImageState} />
