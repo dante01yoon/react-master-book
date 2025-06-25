@@ -10,6 +10,8 @@ import {
   TestTube,
   BookCopy,
   FileText,
+  Upload,
+  MessageCircle,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -19,10 +21,11 @@ interface SidebarProps {
 const navLinks = [
   { href: '/characters', label: '캐릭터', icon: Users },
   { href: '/characters/1/episode', label: '에피소드', icon: Film },
-  { href: '/episodes/1', label: '게시판', icon: FileText },
+  { href: '/episodes/1', label: '댓글 달기', icon: MessageCircle },
   { href: '/client-component-test', label: '클라이언트 테스트', icon: TestTube },
   { href: '/rerender-test', label: '리렌더 테스트', icon: BookCopy },
   { href: '/markdown', label: '마크다운', icon: FileText },
+  { href: '/upload-action', label: '업로드 액션', icon: Upload },
   { href: '/dynamic-render', label: '동적 렌더', icon: Dices },
 ];
 

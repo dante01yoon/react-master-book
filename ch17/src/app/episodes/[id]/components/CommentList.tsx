@@ -34,7 +34,6 @@ interface CommentListProps {
 }
 
 export default function CommentList({ comments, episodeId }: CommentListProps) {
-  const formRef = useRef<HTMLFormElement>(null);
   const [isPending, startTransition] = useTransition();
 
   // 1. useOptimistic 훅으로 댓글 목록의 낙관적 업데이트를 설정
@@ -59,8 +58,7 @@ export default function CommentList({ comments, episodeId }: CommentListProps) {
       reactions: [],
     });
 
-    // 3. 폼을 초기화하고 실제 서버 액션을 호출
-    formRef.current?.reset();
+    // 3. 서버 액션을 호출
     await createCommentAction(formData);
   }
 
@@ -98,7 +96,7 @@ export default function CommentList({ comments, episodeId }: CommentListProps) {
       </ul>
 
       {/* 댓글 입력 폼 */}
-      <form ref={formRef} action={handleCreateComment} className="mt-6">
+      <form action={handleCreateComment} className="mt-6">
         <input type="hidden" name="episodeId" value={episodeId} />
         <textarea
           name="content"
