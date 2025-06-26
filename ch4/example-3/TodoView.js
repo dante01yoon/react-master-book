@@ -28,6 +28,7 @@ export class TodoView {
 
       const deleteButton = document.createElement('button');
       deleteButton.textContent = 'Delete';
+      // 어떤 항목을 식별할 수 있도록 data-index 속성 추가
       deleteButton.dataset.index = index;
 
       listItem.appendChild(deleteButton);
