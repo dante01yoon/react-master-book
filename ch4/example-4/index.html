@@ -64,17 +64,17 @@
   <div id="app">
     <h2>Todo List (MVVM Example)</h2>
 
-    <!-- 투두를 입력하는 인풋 창. 뷰모델의 newTodo 상태와 양방향 바인딩을 수행합니다. -->
+    <!-- ➊ 이 input의 값은 뷰모델의 'newTodo' 속성과 양방향으로 연결됨 -->
     <input
       type="text"
       data-bind="newTodo"
       placeholder="Enter a new todo..."
     />
 
-    <!-- 투두를 추가하기 위한 버튼. 뷰모델의 addTodo() 함수를 호출합니다. -->
+    <!-- ➋ 이 버튼의 클릭 이벤트는 뷰모델의 'addTodo' 메서드와 연결됨 -->
     <button data-click="addTodo">Add Todo</button>
 
-    <!-- 투두 리스트를 표시할 ul 엘리먼트  -->
+    <!-- ➌ 이 <ul> 목록은 뷰모델의 'todos' 배열을 기반으로 렌더링됨 -->
     <ul data-list="todos"></ul>
   </div>
 
