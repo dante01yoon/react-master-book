@@ -24,7 +24,7 @@ function BasicHtmlElements() {
 
 // 2. 사용자 정의 컴포넌트 (대문자로 시작)
 function CustomButton() {
-  return <button className="custom-button">사용자 정의 버튼</button>;
+  return <button className="custom-button">커스텀 버튼</button>;
 }
 
 function ComponentExample() {
@@ -151,7 +151,7 @@ function Omega() {
     <>
       // JSX 태그 이름에는 UnicodeEscapeSequence 사용 불가
       <video></\u0076ideo>
-    <\u03A9mega/>
+   <\u03A9mega/>
     </>
   )
 }
