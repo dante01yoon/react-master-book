@@ -11,7 +11,7 @@ function Button(props) {
 function Page() {
   return (
     // ➋ 
-    <Button className=”primary” onClick={console.log} />
+    <Button className=”primary” onClick={console.log} /> 
    )
 }
 ```

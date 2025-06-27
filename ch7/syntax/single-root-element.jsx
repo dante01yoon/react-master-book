@@ -10,8 +10,8 @@
 function SingleRootElement() {
   return (
     <div>
-      <h1>Hello, Reader!</h1>
-      <p>This is allowed.</p>
+      <h1>Hello, Reader!</h1>  {/* ➊ */}
+      <p>This is allowed.</p>  {/* ➋ */}
     </div>
   );
 }
