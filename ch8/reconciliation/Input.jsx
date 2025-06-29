@@ -1,43 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from 'react';
 
 const Input = ({ name, ...props}) => {
+  // ➊ 이 컴포넌트가 마운트될 때 한 번만 실행됨
   useEffect(() => {
-    console.log("name: ", name);
-  },[]);
-  return (
-    <input {...props} name={name} />
-  )
- }
+    console.log(`Input "${name}" mounted`);
+    return () => console.log(`Input "${name}" unmounted`);
+  }, [name]); // name이 바뀔 때마다 실행되도록 수정 (언마운트 추적용)
+  
+  return <input {...props} name={name} />;
+}
 
- export default Input
- 
-const First = () => {
-  const [disabled, setDisabled]  = useState(false);
-  const toggle = () => {
-    setDisabled(!disabled)
-  }
-  return (
-    <div>
-      <button onClick={toggle}>toggle disable</button>
-      {disabled 
-        ? <Input disabled name="disabled-input" />
-        : <Input name="active-input" />
-      }
-    </div>
-  )
-}
- 
-const Second = () => {
-  const [disabled, setDisabled]  = useState(false);
-  const toggle = () => {
-    setDisabled(!disabled)
-  }
-  return (
-    <div>
-      <button onClick={toggle}>toggle disable</button>
-      {disabled ? <Input disabled name="disabled-input" /> : null}
-      {!disabled ? <Input name="active-input" /> : null}
-    </div>
-  )
-}
- 
+export default Input
