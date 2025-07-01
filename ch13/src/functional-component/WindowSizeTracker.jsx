@@ -67,24 +67,41 @@ function useRouter() {
 }
 // useRouter 커스텀 훅 정의 끝
 
-// useWindowSize 커스텀 훅 정의 시작
+// ➊ 'use'로 시작하여 커스텀 훅임을 명시함
 function useWindowSize() {
-  const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+  // ➋ window의 크기를 저장하기 위한 state. 초기값으로 현재 window 크기를 설정함
+  const [size, setSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  // ➌ 컴포넌트의 생명주기와 동기화하기 위한 Effect Hook
   useEffect(() => {
+    // window 크기가 변경될 때 state를 업데이트하는 핸들러 함수
     const handleResize = () => {
-      setSize({ width: window.innerWidth, height: window.innerHeight });
+      setSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
     };
+
+    // 'resize' 이벤트에 대한 리스너를 등록함
     window.addEventListener('resize', handleResize);
+
+    // 클린업(cleanup) 함수: 컴포넌트가 언마운트될 때 이벤트 리스너를 제거함
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, []); // 의존성 배열이 비어있으므로, 이 effect는 마운트 시 한 번만 실행됨
+
+  // ➍ 캡슐화된 상태(size)를 반환함. UI(JSX)는 반환하지 않음
   return size;
 }
-// useWindowSize 커스텀 훅 정의 끝
 
 function WindowSizeViewer() {
-  const router = useRouter();
-  const auth = useAuthStore();
+  // ➎ 커스텀 훅을 호출하여 로직을 재사용하고 상태를 가져옴
   const { width, height } = useWindowSize();
+  const router = useRouter(); // 의존서 추가 및 제거가 쉬움
+  const auth = useAuthStore();
+
   return <div>Window size: {width}x{height}</div>;
 }
 
