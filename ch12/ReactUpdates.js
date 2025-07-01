@@ -1,28 +1,20 @@
 // 경로: src/renderers/shared/stack/reconciler/ReactUpdates.js (일부, 간략화)
 
-var dirtyComponents = []; // 업데이트가 필요한 컴포넌트 목록
+// 스택 재조정자 시절의 코드 간소화
+var dirtyComponents = []; // 업데이트가 필요한 '더티' 컴포넌트 목록
 var updateBatchNumber = 0; // 현재 업데이트 배치의 번호
 
+
 function enqueueUpdate(component) {
-  // batchingStrategy.isBatchingUpdates가 false이면 (즉, 배치 업데이트 중이 아니면)
-  // 즉시 배치 업데이트를 시작하도록 하거나, 현재 업데이트를 다음 배치에 포함시킴
-  // (이 부분은 batchingStrategy에 따라 동작이 달라질 수 있음)
+  // 현재 배치 업데이트가 진행 중인지 확인
   if (!batchingStrategy.isBatchingUpdates) {
+    // 진행 중이 아니라면, 배치 업데이트를 시작함
     batchingStrategy.batchedUpdates(enqueueUpdate, component);
     return;
   }
 
-  // 컴포넌트를 dirtyComponents 배열에 추가함
+  // 배치 업데이트가 이미 진행 중이라면, 컴포넌트를 큐에 추가
   dirtyComponents.push(component);
-
-  // 컴포넌트가 어떤 배치에서 업데이트 될 예정인지 표시함
-  // 이미 _updateBatchNumber가 현재 배치 번호보다 크거나 같으면 (이미 큐에 있거나 처리 중이면)
-  // 중복 추가를 방지하거나, 특정 로직 수행 가능
-  // 여기서는 스택 재조정자의 단순한 형태를 가정하여,
-  // 컴포넌트에 업데이트 배치 번호를 기록하는 부분을 보여줌
-  if (component._updateBatchNumber == null) {
-    component._updateBatchNumber = updateBatchNumber + 1;
-  }
 }
 
 var asapEnqueued = false; // asap 큐에 작업이 있는지 여부
