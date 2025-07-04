@@ -9,7 +9,7 @@ interface GameBoardProps {
 
 const GameBoard: React.FC<GameBoardProps> = ({ activeHoles, onWhack, gameSpeed }) => {
   // 각 두더지에 대한 ref 배열
-  const moleRefs = useRef<(HTMLDivElement | null)[]>(Array(9).fill(null));
+  const moleRefs = useRef<(HTMLDivElement | null)[]>([]);
   
   // 난이도에 따른 속도 계산
   const moleSpeed = 0.5 - (gameSpeed * 0.05);

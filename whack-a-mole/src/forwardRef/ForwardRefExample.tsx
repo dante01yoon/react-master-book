@@ -1,12 +1,11 @@
 import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 
-// React.forwardRef를 사용하여 MyInput 컴포넌트 정의
-// props와 함께 두 번째 인자로 ref를 받음
+// ➊ forwardRef를 사용. 두 번째 인자로 ref를 받음
 const MyInput = forwardRef<HTMLInputElement, { label: string }>((props, ref) => {
   return (
     <div>
       <label>{props.label}</label>
-      {/* 부모로부터 전달받은 ref를 input 요소에 연결함 */}
+      {/* ➋ 부모로부터 전달받은 ref를 실제 input 요소에 연결 */}
       <input ref={ref} type="text" />
     </div>
   );

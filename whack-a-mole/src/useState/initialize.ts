@@ -16,3 +16,16 @@ const useInitializeExample = () => {
   });
 
 }
+
+/**
+ 
+const [count, setCount] = useState(0);
+
+
+const handleClick = () => {
+ // 상태 업데이트를 스케줄링함
+  setCount(count + 1);  // 이전 상탯값(count)에 직접 의존하는 방식
+  // setCount가 실행된 직후지만, 아직 리렌더링 전이므로 이전 상태인 0이 기록됨
+ console.log(count); // 0
+};
+*/
