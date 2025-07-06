@@ -11,3 +11,10 @@ declare function useCallback<
   deps: ReadonlyArray<any>
   // 메모이제이션된 콜백 함수를 반환하며, 타입은 원본 콜백 함수와 동일함
 ): T;
+
+
+
+// 이 두 코드는 완전히 동일하게 동작
+const memoizedFn = useCallback(fn, deps);
+
+const memoizedFn2 = useMemo(() => fn, deps);

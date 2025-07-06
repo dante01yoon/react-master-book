@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 
 // 부모로부터 onClose 콜백 함수를 prop으로 받음
-function useEscapeKey(onClose: () => void) {
+export function useEscapeKey(onClose: () => void) {
   useEffect(() => {
     // 'Escape' 키 입력 시 onClose 함수를 호출하는 핸들러
     const handleKeyDown = (e: KeyboardEvent) => {

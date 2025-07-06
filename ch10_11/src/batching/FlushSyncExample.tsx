@@ -7,8 +7,7 @@ const FlushSyncExample = () => {
   const handleClick = () => {
     setCount(count + 1); // 
     setCount(count + 2); // 
-    // 이 시점의 count는 0
-    console.log("before flushSync - count 스냅샷:", count);
+    console.log("before flushSync - count 스냅샷:", count); // 이 시점의 count는 0
 
     // flushSync는 콜백 내의 상태 업데이트를 즉시 동기적으로 실행하고 DOM을 업데이트함
     flushSync(() => {
@@ -16,7 +15,7 @@ const FlushSyncExample = () => {
         console.log("inside flushSync - prevCount:", prevCount);
         return prevCount + 3
       });
-    console.log("inside flushSync - count 스냅샷:", count);
+      console.log("inside flushSync - count 스냅샷:", count);
     });
     // 이 시점의 count는 0
     console.log("after flushSync - count 스냅샷:", count);
