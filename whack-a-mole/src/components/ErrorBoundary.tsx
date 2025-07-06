@@ -2,7 +2,6 @@ import { Component, ErrorInfo, PropsWithChildren, ReactNode } from "react";
 
 // ➊ ErrorBoundary 컴포넌트가 관리하는 상태 타입 정의.
 type ErrorBoundaryState = {
-  hasError: boolean; // 에러 발생 여부를 나타내는 boolean 값.
   error: Error | null; // 발생한 에러 객체
 };
 
@@ -35,7 +34,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     // 초기 상태는 에러가 없는 상태로 설정함
-    this.state = { error: null, hasError: false };
+    this.state = { error: null };
   }
 
   /**
@@ -47,7 +46,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
    */
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     // 다음 렌더링에서 fallback UI가 보이도록 상태를 업데이트함
-    return { error, hasError: true };
+    return { error };
   }
 
   /**
@@ -76,19 +75,19 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       this.props.onReset();
     }
     // 에러 상태를 초기화함
-    this.setState({ error: null, hasError: false });
+    this.setState({ error: null });
   };
 
   /**
    * ➏ 컴포넌트의 UI를 렌더링하는 메서드.
-   * 에러 상태(this.state.hasError)에 따라 자식 컴포넌트 또는 fallback UI를 렌더링함.
+   * 에러 상태(this.state.error)에 따라 자식 컴포넌트 또는 fallback UI를 렌더링함.
    * @returns 렌더링할 React 엘리먼트
    */
   render() {
     const { fallbackRender, FallbackComponent, children } = this.props;
-    const { hasError, error } = this.state;
+    const { error } = this.state;
 
-    if (hasError && error) {
+    if (error) {
       // 에러가 발생한 경우 fallback UI를 렌더링함
       const fallbackProps: FallbackProps = {
         error,

@@ -1,4 +1,4 @@
-// ch14/react-19/src/fakeApiForUse.js
+// ch16/react-19/src/fakeApiForUse.js
 
 // 사용자 정보를 가져오는 비동기 함수
 export function fetchUser() {
