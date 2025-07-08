@@ -8,7 +8,15 @@
 
 
 ```JS
-function Rd(e) {
+function Button () {
+   return (
+       <div>
+        Golden Rabbit
+       </div>
+   )
+}
+
+function Button(e) {
  return nn.jsx("button", { // ➊
    className: e.className,
    onClick: e.onClick,
@@ -16,14 +24,21 @@ function Rd(e) {
  });
 }
 function Od() {
-  // ➋
- return nn.jsx(Rd, { children: "Golden Rabbit" });
+ return nn.jsx(Button, { children: "Golden Rabbit" });
 }
 ```
 
 ```JS
-function Rd() {
+function Button2 () {
+    return (
+        <customButton>
+         Golden Rabbit
+        </customButton>
+    )
+}
+
+function Button2() {
  // 난수가 아닌 문자열로 변환되어 HTML 기본 태그로 인식되는 customButton
- return En.jsx("customButton", { children: "Golden Rabbit" }); ➊ 
+ return En.jsx("customButton", { children: "Golden Rabbit" });  
 }
 ```

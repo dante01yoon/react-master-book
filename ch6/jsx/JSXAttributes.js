@@ -72,11 +72,11 @@ function JSXAsAttributeValue() {
   return (
     <div>
       {/* JSX 엘리먼트를 속성값으로 사용 */}
-      <button 
+      <Button 
         icon={<Icon name="add" />} // JSX 엘리먼트를 속성값으로 전달
       >
         아이템 추가
-      </button>
+      </Button>
       
       {/* JSX Fragment를 속성값으로 사용 */}
       <Tooltip 
