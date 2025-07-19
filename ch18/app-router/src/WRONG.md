@@ -16,14 +16,13 @@ export default function MyClientComponent() {
 
 
 ```TSX
-// ch16/app-router/src/components/CharacterList.tsx
 'use client'; // 클라이언트 경계의 시작
 
 // 이 컴포넌트는 자동으로 클라이언트 컴포넌트가 됨
 import CharacterCard from './CharacterCard';
 // ...
 
-// ch16/app-router/src/components/CharacterCard.tsx
+// ch18/app-router/src/components/CharacterCard.tsx
 // 'use client' 지시어가 필요 없음!
 import Image from 'next/image';
 // ...

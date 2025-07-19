@@ -50,7 +50,7 @@ const InputComponent = ({ onMessageChange }: InputComponentProps) => {
       />
       <button onClick={handleSubmit} style={{ padding: '5px 10px' }}>
         메시지 업데이트 요청
-      </button>{' '}
+      </button>
       {/* 버튼 클릭 시 handleSubmit 호출함 */}
     </div>
   );
